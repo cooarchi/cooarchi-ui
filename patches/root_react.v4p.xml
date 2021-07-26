@@ -1,0 +1,11 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta28.1.dtd" >
+  <PATCH>
+  <BOUNDS type="Window" width="7500" height="7500">
+  </BOUNDS>
+  <NODE id="1" nodename="ReactTest (react)" systemname="ReactTest (react)" componentmode="Hidden">
+  <BOUNDS type="Node" left="2190" top="1935" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  </PATCH>

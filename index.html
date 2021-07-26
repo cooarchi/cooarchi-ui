@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+
+	
+	<link rel="stylesheet" type="text/css" href="css_cooarchi.css" >
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                <meta name="HandheldFriendly" content="true" />    
+				
+				
+	<script src="lib/jquery-3.6.0.min.js"></script>	
+
+	
+</head>
+
+
+<body>
+    <script src="lib/d3.v4.min.js"></script>
+  <div id="main">
+    <div id="map">
+      <svg id="svg"></svg>
+    </div>
+  </div>
+
+
+	<div class="input_fields">
+	
+		<div class="input_column">
+	  <button><span class="upload"></span></button>
+	  <button><span class="longtext"></span></button>
+	  <input type="text" id="e1" name="fname"><br>
+	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Location</span><br>
+	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Triggerwarning</span>
+	  </div>
+	  
+	  <div class="input_column">
+	  <br>
+	  <label for="rel">Relation</label><br>
+	  <input type="text" id="rel" name="lname">
+	  </div>
+	  
+	  <div class="input_column">
+	  <button><span class="upload"></span></button>
+	  <button><span class="longtext"></span></button>
+	  <input type="text" id="e2" name="lname">
+	  <br>
+	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Location</span><br>
+	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Triggerwarning</span>
+	  </div>
+	  
+	  <a class="button_cooarch" id="bold">cooArch!</a>
+    </div>
+	
+	
+	
+
+
+
+  <script>
+	
+
+	
+  
+  	var test_savedata = { "nodes": [ { "label": "cooArchi", "index": 0, "isLocation": true, "isLongText": false, "mediaType": "none", "triggerWarning": false }, { "label": "foo321456", "index": 0, "isLocation": false, "isLongText": false, "mediaType": "none", "triggerWarning": false } ], "links": [ { "index": 23, "label": "dwa", "source": { "label": "cooArchi" }, "target": { "label": "foo321456" } } ] } 
+
+
+	//global variables
+	var init = false;
+  
+  
+    window.onload = () => {
+	
+	
+
+      Array.prototype.delete = function (arr) {
+        var t = [];
+        for (let j = 0; j < this.length; ++j) {
+          let f = false;
+          for (let i = 0; i < arr.length; ++i) {
+            if (j == arr[i]) {
+              f = true
+            }
+          }
+          if (!f) {
+            t.push(this[j])
+          }
+        }
+        return t;
+      }
+	  
+	  
+	
+	  
+      var svg = d3.select("svg"),
+        w = $(window).width();
+        h = $(window).height();
+        n = 1;
+		
+		svg.attr('width', w)
+        .attr('height', h);
+		
+		nodesArray = []
+		linksArray = []
+		
+		
+		
+		
+		if(init==true){
+			nodesArray = d3.range(n).map(function (i) { return { index: i, label: "cooArchi",isCoreElement: false, isFile: false, isLocation: false, isLongText: false, longText: null, mediaType: null, triggerWarning: false }; }),
+			//nodesArray = testdata.nodes
+			
+			
+			
+			linksArray = d3.range(n).map(function (i) {
+			  return {
+				source: i,
+				target: Math.floor(Math.random() * n)
+				}
+			})
+			
+		}
+		//linksArray = testdata.links;
+		
+		var dataIn = test_savedata;
+
+		
+		
+		
+		//FORCE SETTINGS
+		var charge_strength = -200;
+		var link_distance = 20;
+		var link_strenght = 1;
+		var collision_radius = 100;
+		
+		//image SETTINGS
+		image_height = 30;
+		image_width = 30;
+		
+      var simulation = d3.forceSimulation(nodesArray)
+        .force("charge", d3.forceManyBody().strength(charge_strength))
+        .force("link", d3.forceLink(linksArray).distance(link_distance).strength(link_strenght))
+		.force('collision', d3.forceCollide().radius(collision_radius))
+        //.force("center", d3.forceCenter(w/2, h/2))
+        .force("x", d3.forceX(w / 2))
+        .force("y", d3.forceY(h / 2))
+        .on("tick", ticked);
+
+
+	
+		
+		
+	  var g_pan = svg.append("g")
+        .attr("class", "pan");
+		
+
+		svg.call(d3.zoom().on("zoom", function () {
+			g_pan.attr("transform", d3.event.transform)
+		}))
+		
+      var g_links = g_pan.append("g")
+        .attr("class", "links");
+      var g_nodes = g_pan.append("g")
+        .attr("class", "nodes");
+	var g_images = g_pan.append("g")
+        .attr("class", "node_images");	
+	  var g_lables = g_pan.append("g")
+        .attr("class", "lables");
+	  var g_linknames = g_pan.append("g")
+        .attr("class", "linknames");
+
+
+
+
+		var links = g_links.selectAll(".glinks")
+		.data(linksArray)
+        .enter().append("g").attr("class", "glinks").append("line")
+        .attr("x2", (d) => { return d.source.x; })
+        .attr("y2", (d) => { return d.source.y; })
+        .attr("x1", (d) => { return d.target.x; })
+        .attr("x1", (d) => { return d.target.y; })
+		
+		
+		  var defs = svg.append("svg:defs");
+  
+		   defs.append("svg:pattern")
+				  .attr("width", 1)
+				  .attr("height", 1)
+				  //.attr("patternUnits", "userSpaceOnUse")
+				  .attr("id", "myImage")
+				  .append("svg:image")
+				  .attr("xlink:href", "https://placekitten.com/g/48/48")
+				  .attr("width", 48)
+				  .attr("height", 48)
+				  .attr("x", 0)
+				  .attr("y", 0);
+			
+	 var nodeImages = g_images.selectAll("image")
+        .data(nodesArray)
+        .enter().append("image")
+		.attr("xlink:href", ".primitives/cube_512.png")
+        .attr("x", (d) => { return d.x; })
+        .attr("y", (d) => { return d.y; })
+		.attr("width", 16)
+		.attr("height", 16)	  
+		
+		  
+      var nodes = g_nodes.selectAll("circle")
+        .data(nodesArray)
+        .enter().append("circle")
+        .attr("cx", (d) => { return d.x; })
+        .attr("cy", (d) => { return d.y; })
+		.attr('fill', "url(#myImage)")
+		
+		 
+		 
+	
+
+		
+        //.on("click", remove)
+		
+		
+		//labels on nodes
+		var lables = g_lables.selectAll("text")
+        .data(nodesArray)
+        .enter().append("text")
+
+		.text((d) => { return d.label; })
+        .on("click", remove)
+		
+		//labels on text
+		var linkText = g_linknames.selectAll(".text")
+		.data(linksArray)
+		.append("text")
+		.attr("font-family", "Arial, Helvetica, sans-serif")
+		.attr("x", function(d) {
+			if (d.target.x > d.source.x) {
+				return (d.source.x + (d.target.x - d.source.x)/2); }
+			else {
+				return (d.target.x + (d.source.x - d.target.x)/2); }
+		})
+		.attr("y", function(d) {
+			if (d.target.y > d.source.y) {
+				return (d.source.y + (d.target.y - d.source.y)/2); }
+			else {
+				return (d.target.y + (d.source.y - d.target.y)/2); }
+		})
+		.attr("fill", "Black")
+		.style("font", "normal 12px Arial")
+		.attr("dy", ".35em")
+		.text(function(d) { return d.name;  });
+
+		
+		//add nodes
+		 //svg.on("click", add, true);
+
+
+      function reDraw() {
+	  	 
+		 
+		 
+		var update_images = g_images.selectAll("image")
+			.data(nodesArray);
+		update_images.exit().remove();
+        nodeImages = update_images.enter()
+			.append("image")
+			.attr("xlink:href", "https://icons.iconarchive.com/icons/google/chrome/48/Google-Chrome-icon.png")
+			.attr("width", image_width)
+			.attr("height", image_height)
+			.merge(update_images);
+			
+			
+			
+        var update_nodes = g_nodes.selectAll("circle")
+          .data(nodesArray);
+        update_nodes.exit().remove();
+        nodes = update_nodes.enter()
+          .append("circle")
+          .merge(update_nodes);
+		  
+        var update_links = g_links.selectAll(".glink")
+          .data(linksArray);
+        update_links.exit().remove()
+        links = update_links.enter()
+          .append("g").attr("class", "glink").append("line")
+          .merge(update_links)
+		  
+
+		  
+		var update_lables = g_lables.selectAll("text")
+          .data(nodesArray);
+        update_lables.exit().remove()
+        lables = update_lables.enter()
+          .append("text")
+		  .text((d) => { return d.label; })
+          .merge(update_lables)
+		  
+		  
+		  
+		var update_linktexts = g_linknames.selectAll("text")
+          .data(linksArray);
+        update_linktexts.exit().remove()
+        linkText = update_linktexts.enter()
+		  .append("text")
+		  .text((d) => { return d.label; })
+          .merge(update_linktexts)
+
+	
+
+
+		
+      }
+	  
+	  
+      function ticked() {
+	  
+	  	nodeImages	
+			.attr("xlink:href", "primitives/cube_512.png")
+			.attr("x", (d) => { return d.x -image_width/2; })
+			.attr("y", (d) => { return d.y -image_height/2; })
+		
+        nodes.attr("cx", (d) => { return d.x; })
+          .attr("cy", (d) => { return d.y; })
+		  
+        links = g_links.selectAll("line")
+          .attr("x2", (d) => { return d.source.x; })
+          .attr("y2", (d) => { return d.source.y; })
+          .attr("x1", (d) => { return d.target.x; })
+          .attr("y1", (d) => { return d.target.y; })
+		  
+		 lables.attr("x", (d) => { return d.x; })
+          .attr("y", (d) => { return d.y; })
+		  
+		 linkText.attr("x", function(d) {
+			if (d.target.x > d.source.x) {
+				return (d.source.x + (d.target.x - d.source.x)/2); }
+			else {
+				return (d.target.x + (d.source.x - d.target.x)/2); }
+			})
+			.attr("y", function(d) {
+				if (d.target.y > d.source.y) {
+					return (d.source.y + (d.target.y - d.source.y)/2); }
+				else {
+					return (d.target.y + (d.source.y - d.target.y)/2); }
+			})
+			
+			
+
+
+			
+      }
+	  
+	  
+
+	  
+	  
+	  
+      function remove(n, i) {
+        d3.event.bubbles = false;
+        if (d3.event.target.tagName == "circle") {
+          d3.event.stopPropagation();
+        }
+        var linkIndex = linksArray.filter((d) => {
+          return (d.target.index == i || d.source.index == i);
+        })
+
+        linksArray = linksArray.delete(linkIndex.map((d) => {
+          return d.index;
+        }))
+        nodesArray = nodesArray.delete([i]);
+        simulation.force("link", d3.forceLink(linksArray).distance(20).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+      }
+	  
+	  
+	  
+	  
+	  
+      function add(label) {
+        var n = {
+          index: nodesArray.length,
+		  label: label,
+		  triggerWarning: false,
+		  isLocation: false,
+		  mediaType: "none",
+		  isLongText: "false",
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+        var l = {
+          index: linksArray.length,
+          source: n,
+          target: nodesArray[Math.floor(nodesArray.length * Math.random())]
+        }
+        linksArray.push(l);
+        nodesArray.push(n);
+        simulation.force("link", d3.forceLink(linksArray).distance(40).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+      }
+	  
+
+      function add_elements(id1,id2, linkname, save) {
+		var index1
+		var index2
+		var i1_exist = false;
+		var i2_exist = false;
+	  
+		var existing_index1 = nodesArray.map(function(x) {return x.label; }).indexOf(id1);
+		if(existing_index1 !== -1){
+		index1 = existing_index1;
+		i1_exist = true;
+		}else{
+		index1 = nodesArray.length
+		}
+		
+		var existing_index2 = nodesArray.map(function(x) {return x.label; }).indexOf(id2);
+		if(existing_index2 !== -1){
+		index2 = existing_index2;
+		i2_exist = true;
+		}else{
+		index2 = nodesArray.length
+		}
+		
+		
+        var n1 = {
+          index: index1,
+		  label: id1,
+		  isCoreElement: false, 
+		  isFile: false, 
+		  isLocation: false, 
+		  isLongText: false, 
+		  longText: null, 
+		  mediaType: null, 
+		  triggerWarning: false,
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+		var n2 = {
+          index: index2,
+		  label: id2,
+		  isCoreElement: false, 
+		  isFile: false, 
+		  isLocation: false, 
+		  isLongText: false, 
+		  longText: null, 
+		  mediaType: null, 
+		  triggerWarning: false,
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+		
+		var l_source = i1_exist ? nodesArray[index1] : n1;
+		var l_target = i2_exist ? nodesArray[index2] : n2;
+		
+        var l = {
+          index: linksArray.length,
+		  label: linkname,
+          source: l_source,
+          target: l_target
+        }
+		
+        linksArray.push(l) 
+
+        if(i1_exist==false){nodesArray.push(n1) }
+
+
+		if(i2_exist==false){nodesArray.push(n2) }
+
+        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+		
+		var sendObject = {}
+		sendObject.nodes=[n1,n2] //avoid sending both nodes if not added
+		sendObject.links=[l]
+		
+		
+		var sendString = JSON.stringify(sendObject)
+		//console.log(sendString)
+		var testString = JSON.stringify(test_savedata)
+		//console.log(testString)
+		if(save==true){
+			save_data(sendString)
+		}
+		
+		
+		//var completeCoarchi = {}
+		//completeCoarchi.nodes=nodesArray
+		//completeCoarchi.links=linksArray
+		//sendCooarchi = JSON.stringify(completeCoarchi)
+		//console.log(sendCooarchi)
+      }
+	  
+	  
+	  //LOAD
+	//https://stage.cooarchi.net/data?delta=1
+	//delta pro minute
+		
+	function load(){	
+		
+		var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "https://stage.cooarchi.net/data",
+	  "method": "GET",
+	  "headers": {
+		"Content-Type": "application/json"
+	  },
+	  "processData": false
+	}
+
+	$.ajax(settings).done(function (response) {	
+	
+	
+		for(var i=0; i < response.links.length; i++){
+		
+				
+		
+		
+				add_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false)
+			}
+			
+			
+			
+	  console.log(response);
+	});
+
+	}
+
+	function save_data(data){
+		
+		var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "https://stage.cooarchi.net/save",
+	  "method": "POST",
+	  "headers": {
+		"Content-Type": "application/json"
+	  },
+	  "processData": false,
+	  "data": data
+	}
+
+	$.ajax(settings).done(function (response) {
+	  console.log(response);
+	});
+
+	}
+	  
+
+
+	  
+	  
+		$( ".button_cooarch" ).click(function() {
+		  //console.log( "Handler for .click() called." );
+		  var e1= $("#e1").val();
+		  var rel= $("#rel").val();
+		  var e2= $("#e2").val();
+		  
+		  
+		  add_elements(e1,e2,rel, true);
+  
+  
+		});
+		
+		
+	if(init==false){	
+		load()
+		//for(var i=0; i < dataIn.nodes.length; i++){
+		//	add_elements(dataIn.links[i].source.label,dataIn.links[i].target.label, dataIn.links[i].label,false)
+		//}
+		}
+	}
+	
+	
+			
+	
+	
+	
+  </script>
+</body>
+
+</html>

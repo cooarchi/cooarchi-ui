@@ -1,0 +1,181 @@
+
+@font-face{
+        font-family: "Lekton";
+	src: url(lekton/Lekton-Regular.ttf);
+        }
+     
+html{
+        height:100%
+                
+}
+
+body
+{       
+        overscroll-behavior: none;
+        overscroll-behavior-y: contain;
+        -webkit-box-sizing: border-box; /* Safari, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+        width: 100%;
+       
+		margin: 0 -3px 0 0;
+        overflow-x: hidden;
+        height: 100vh;
+        max-width: 100%;
+        -webkit-touch-callout: none;
+        -webkit-text-size-adjust:none;
+        -moz-text-size-adjust:none;
+        -ms-text-size-adjust:none;
+        -webkit-text-size-adjust:100%;
+        -moz-text-size-adjust:100%;
+        -ms-text-size-adjust:100%;      
+        user-drag: none; 
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        overflow: hidden;
+		background-color: white;
+		user-select: none; /* supported by Chrome and Opera */
+	   -webkit-user-select: none; /* Safari */
+	   -khtml-user-select: none; /* Konqueror HTML */
+	   -moz-user-select: none; /* Firefox */
+	   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+body svg{
+	width: 100%;
+	height: 100%;
+}
+
+.svgdiv{
+	position: fixed;
+	width: 100%;
+		
+}
+
+.slider_fields{
+position: absolute;
+left: 0px;
+bottom: 100px;	
+}
+
+span.upload {
+    background: url(icons/folder2.png) no-repeat top left;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+}
+
+span.longtext {
+    background: url(icons/file2.png) no-repeat top left;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+}
+
+.checkbox{
+  position:relative;
+  cursor:pointer;
+  appearance:none;
+  width:40px;
+  height:20px;
+  border-radius:20px;
+  border:2px solid #ccc;
+  outline:none;
+  transition:0.3s;
+}
+.checkbox::before{
+  content:"";
+  position:absolute;
+  height:10px;
+  width:10px;
+  border-radius:50%;
+  background:#ccc;
+  top:3px;
+  left:4px;
+  transition:0.3s ease-in-out;
+}
+.checkbox:checked::before{
+  transform:translateX(18px);
+  background:#3399ff;
+}
+.checkbox:checked{
+  border-color:#3399ff;
+}
+
+.checkbox_text{
+	position: relative;
+	top: -8px;
+}
+/* svg { */
+  /* background: url('https://media1.thehungryjpeg.com/thumbs2/ori_3608712_ntnvjj4vycg35o1jmvgjl2r834q4kfey5edfgd0p_grid-with-dots-paper-seamless-pattern-isometric-floor-plan-for-basic.jpg') repeat; */
+/* } */
+
+.node_images image{
+	z-index:10;
+}	
+#main {
+      overflow: hidden;
+      position: relative;
+
+	  
+	}
+    
+	
+.nodes circle {
+	stroke: black;
+      background-color: transparent;
+      stroke-width: 1;
+      r: 5;
+    }
+
+    .links {
+      stroke: black;
+    }
+	
+	
+
+.textClass {
+            stroke: #323232;
+            font-family: "Lucida Grande", "Droid Sans", Arial, Helvetica, sans-serif;
+            font-weight: normal;
+            stroke-width: .5;
+            font-size: 14px;
+ }
+		
+.input_fields{
+			
+		display: flex;
+		flex-direction: row;
+		flex-basis: 100%;
+		flex: 1;
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%,0%);
+		top:20px;
+		width: 600px;
+		
+		background-color: transparent;
+		
+}
+
+.button_cooarch {
+	
+
+		left: 50%;
+		transform: translate(-50%;0%;);
+		top: 50px;
+		background-color: black; /* Green */
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		height: 20px;
+
+}

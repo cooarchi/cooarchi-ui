@@ -1,0 +1,509 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta28.1.dtd" >
+  <PATCH>
+  <BOUNDS type="Window" width="7500" height="7500">
+  </BOUNDS>
+  <NODE id="4" nodename="HTTP (Network Get)" systemname="HTTP (Network Get)" componentmode="Hidden">
+  <BOUNDS type="Node" left="2685" top="2805" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="URL" visible="1">
+  </PIN>
+  <PIN pinname="Name" visible="1">
+  </PIN>
+  <PIN pinname="Value" visible="1">
+  </PIN>
+  <PIN pinname="Refresh" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="5" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="2340" top="825" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1" values="|miserables.json|">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="6" nodename="OnOpen (VVVV)" systemname="OnOpen (VVVV)" componentmode="Hidden">
+  <BOUNDS type="Node" left="3585" top="2370" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Simulate" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="12" nodename="TextArea (HTML)" systemname="TextArea (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="9600" top="6420" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Parent" visible="1">
+  </PIN>
+  <PIN pinname="Text" visible="1">
+  </PIN>
+  <PIN pinname="name" visible="1" values="||">
+  </PIN>
+  <PIN pinname="Enabled" visible="1">
+  </PIN>
+  <PIN pinname="Attribute Names" visible="0" values="||">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="13" nodename="GetElement (HTML)" systemname="GetElement (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="16590" top="2700" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Selector" visible="1" values="|.input_fields|">
+  </PIN>
+  <PIN pinname="Parent" visible="1">
+  </PIN>
+  <PIN pinname="Refresh" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="14" nodename="Select (Node)" systemname="Select (Node)" componentmode="Hidden">
+  <BOUNDS type="Node" left="16830" top="3900" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input" visible="1">
+  </PIN>
+  <PIN pinname="Select" visible="1" values="|3|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="16" nodename="Transform (HTML)" systemname="Transform (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8175" top="3600" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="17" nodename="Transform (Transform 2d)" systemname="Transform (Transform 2d)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8955" top="2640" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="TranslateX" visible="1">
+  </PIN>
+  <PIN pinname="TranslateY" visible="1" values="|28|">
+  </PIN>
+  <PIN pinname="ScaleX" visible="1">
+  </PIN>
+  <PIN pinname="ScaleY" visible="1">
+  </PIN>
+  <PIN pinname="Rotate" visible="1">
+  </PIN>
+  <PIN pinname="CenterX" visible="1">
+  </PIN>
+  <PIN pinname="CenterY" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="18" nodename="LinearSpread (Spreads)" systemname="LinearSpread (Spreads)" componentmode="Hidden">
+  <BOUNDS type="Node" left="9120" top="1755" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input" visible="1" values="|225|">
+  </PIN>
+  <PIN pinname="Width" visible="1" values="|550|">
+  </PIN>
+  <PIN pinname="Alignment" visible="1">
+  </PIN>
+  <PIN pinname="Phase" visible="1">
+  </PIN>
+  <PIN pinname="Spread Count" visible="1" values="|3|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="19" nodename="StyleText (HTML)" systemname="StyleText (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8430" top="375" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="css (text)" visible="1" values="|position: absolute;|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="20" nodename="Element (HTML)" systemname="Element (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="11370" top="6330" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Tag Name" visible="1">
+  </PIN>
+  <PIN pinname="Parent" visible="1">
+  </PIN>
+  <PIN pinname="Text" visible="1">
+  </PIN>
+  <PIN pinname="Enabled" visible="1">
+  </PIN>
+  <PIN pinname="Attribute Names" visible="0" values="||">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="23" nodename="Transform (HTML)" systemname="Transform (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="11370" top="3750" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="24" nodename="Transform (Transform 2d)" systemname="Transform (Transform 2d)" componentmode="Hidden">
+  <BOUNDS type="Node" left="12150" top="2790" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="TranslateX" visible="1">
+  </PIN>
+  <PIN pinname="TranslateY" visible="1" values="|10|">
+  </PIN>
+  <PIN pinname="ScaleX" visible="1">
+  </PIN>
+  <PIN pinname="ScaleY" visible="1">
+  </PIN>
+  <PIN pinname="Rotate" visible="1">
+  </PIN>
+  <PIN pinname="CenterX" visible="1">
+  </PIN>
+  <PIN pinname="CenterY" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="25" nodename="LinearSpread (Spreads)" systemname="LinearSpread (Spreads)" componentmode="Hidden">
+  <BOUNDS type="Node" left="12315" top="1905" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input" visible="1" values="|225|">
+  </PIN>
+  <PIN pinname="Width" visible="1" values="|550|">
+  </PIN>
+  <PIN pinname="Alignment" visible="1">
+  </PIN>
+  <PIN pinname="Phase" visible="1">
+  </PIN>
+  <PIN pinname="Spread Count" visible="1" values="|3|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="26" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="11925" top="5385" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1" values="|Element1|,|Connection|,|Element2|">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|3|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="27" nodename="Button (HTML)" systemname="Button (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="13575" top="6405" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Parent" visible="1">
+  </PIN>
+  <PIN pinname="Text" visible="1" values="|SAVE|">
+  </PIN>
+  <PIN pinname="name" visible="1" values="|SAVE|">
+  </PIN>
+  <PIN pinname="value" visible="1" values="|SAVE|">
+  </PIN>
+  <PIN pinname="Enabled" visible="1">
+  </PIN>
+  <PIN pinname="Attribute Names" visible="0" values="||">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="28" nodename="Transform (HTML)" systemname="Transform (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="13560" top="3885" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Style In" visible="1">
+  </PIN>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="29" nodename="Transform (Transform 2d)" systemname="Transform (Transform 2d)" componentmode="Hidden">
+  <BOUNDS type="Node" left="14340" top="2925" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Transform In" visible="1">
+  </PIN>
+  <PIN pinname="TranslateX" visible="1" values="|600|">
+  </PIN>
+  <PIN pinname="TranslateY" visible="1" values="|27|">
+  </PIN>
+  <PIN pinname="ScaleX" visible="1" values="|1|">
+  </PIN>
+  <PIN pinname="ScaleY" visible="1" values="|1|">
+  </PIN>
+  <PIN pinname="Rotate" visible="1">
+  </PIN>
+  <PIN pinname="CenterX" visible="1">
+  </PIN>
+  <PIN pinname="CenterY" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="31" nodename="OnOpen (VVVV)" systemname="OnOpen (VVVV)" componentmode="Hidden">
+  <BOUNDS type="Node" left="2220" top="7650" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Simulate" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="32" nodename="GetValue (HTML)" systemname="GetValue (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8775" top="6990" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Element" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="33" nodename="Unzip (String)" systemname="Unzip (String)" componentmode="Hidden">
+  <BOUNDS type="Node" left="7005" top="7770" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input" visible="1">
+  </PIN>
+  <PIN pinname="Output Count" visible="0" values="|3|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="34" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="4350" top="8655" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="35" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="5550" top="8640" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="36" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="6720" top="8700" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="38" nodename="GetAttribute (HTML)" systemname="GetAttribute (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="13605" top="7665" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Element" visible="1">
+  </PIN>
+  <PIN pinname="Attribute Name" visible="1">
+  </PIN>
+  <PIN pinname="Attribute Bin Size" visible="1">
+  </PIN>
+  <PIN pinname="Refresh" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="40" nodename="OnClick (HTML)" systemname="OnClick (HTML)" componentmode="Hidden">
+  <BOUNDS type="Node" left="11790" top="8220" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Element" visible="1">
+  </PIN>
+  <PIN pinname="Prevent Default" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="41" nodename="EQ (String)" systemname="EQ (String)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8775" top="7770" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input 1" visible="1">
+  </PIN>
+  <PIN pinname="Input 2" visible="1">
+  </PIN>
+  <PIN pinname="Case Sensitive" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="42" nodename="OR (Boolean Spectral)" systemname="OR (Boolean Spectral)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8760" top="8580" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input" visible="1">
+  </PIN>
+  <PIN pinname="Bin Size" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="43" nodename="AND (Boolean)" systemname="AND (Boolean)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8760" top="10065" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input 1" visible="1">
+  </PIN>
+  <PIN pinname="Input 2" visible="1">
+  </PIN>
+  <PIN pinname="Input Count" visible="0" values="|2|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="44" nodename="EQ (Value)" systemname="EQ (Value)" componentmode="Hidden">
+  <BOUNDS type="Node" left="8730" top="9390" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Input 1" visible="1">
+  </PIN>
+  <PIN pinname="Input 2" visible="1">
+  </PIN>
+  <PIN pinname="Epsilon" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="45" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)" componentmode="InABox">
+  <BOUNDS type="Box" left="8295" top="11265" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="Y Input Value" visible="1">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="47" nodename="IOBox (String)" systemname="IOBox (String)" componentmode="InABox">
+  <BOUNDS type="Box" left="1215" top="4860" width="0" height="0">
+  </BOUNDS>
+  <PIN pinname="SliceOffset" visible="1">
+  </PIN>
+  <PIN pinname="Input String" visible="1" values="|{&quot;nodes&quot;:[{&quot;name&quot;:&quot;1011101&quot;},{&quot;name&quot;:&quot;112176121201&quot;},{&quot;name&quot;:&quot;112176121205&quot;},{&quot;name&quot;:&quot;112176121207&quot;},{&quot;name&quot;:&quot;112176121211&quot;},{&quot;name&quot;:&quot;10111016&quot;},{&quot;name&quot;:&quot;103715&quot;},{&quot;name&quot;:&quot;1013112&quot;},{&quot;name&quot;:&quot;2161977265&quot;},{&quot;name&quot;:&quot;512512029&quot;},{&quot;name&quot;:&quot;10131830&quot;},{&quot;name&quot;:&quot;15755133206&quot;},{&quot;name&quot;:&quot;15756107158&quot;},{&quot;name&quot;:&quot;6555138158&quot;},{&quot;name&quot;:&quot;1013228156&quot;},{&quot;name&quot;:&quot;17325211027&quot;},{&quot;name&quot;:&quot;101322881&quot;},{&quot;name&quot;:&quot;51195213199&quot;},{&quot;name&quot;:&quot;51217228210&quot;},{&quot;name&quot;:&quot;1013232129&quot;},{&quot;name&quot;:&quot;17631180173&quot;},{&quot;name&quot;:&quot;51217211178&quot;},{&quot;name&quot;:&quot;1013232220&quot;},{&quot;name&quot;:&quot;161691320&quot;},{&quot;name&quot;:&quot;655519293&quot;},{&quot;name&quot;:&quot;8211616&quot;},{&quot;name&quot;:&quot;10132329&quot;},{&quot;name&quot;:&quot;10816817082&quot;},{&quot;name&quot;:&quot;2062078167&quot;},{&quot;name&quot;:&quot;101710921&quot;},{&quot;name&quot;:&quot;10171615&quot;},{&quot;name&quot;:&quot;7112522121&quot;},{&quot;name&quot;:&quot;767112860&quot;},{&quot;name&quot;:&quot;1017172&quot;},{&quot;name&quot;:&quot;10171737&quot;},{&quot;name&quot;:&quot;501820111&quot;},{&quot;name&quot;:&quot;1017186&quot;},{&quot;name&quot;:&quot;1017228203&quot;},{&quot;name&quot;:&quot;51228210221&quot;},{&quot;name&quot;:&quot;791257132&quot;},{&quot;name&quot;:&quot;101723218&quot;},{&quot;name&quot;:&quot;1731911337&quot;},{&quot;name&quot;:&quot;1992776185&quot;},{&quot;name&quot;:&quot;20712316126&quot;},{&quot;name&quot;:&quot;6121525580&quot;},{&quot;name&quot;:&quot;62212831&quot;},{&quot;name&quot;:&quot;66251100192&quot;},{&quot;name&quot;:&quot;6916120216&quot;},{&quot;name&quot;:&quot;9318121690&quot;},{&quot;name&quot;:&quot;10191119&quot;},{&quot;name&quot;:&quot;1019228101&quot;},{&quot;name&quot;:&quot;11217712&quot;},{&quot;name&quot;:&quot;101922827&quot;},{&quot;name&quot;:&quot;1019983&quot;},{&quot;name&quot;:&quot;1021101&quot;},{&quot;name&quot;:&quot;137135212181&quot;},{&quot;name&quot;:&quot;7111911887&quot;},{&quot;name&quot;:&quot;10211022&quot;},{&quot;name&quot;:&quot;10211322&quot;},{&quot;name&quot;:&quot;102123282&quot;},{&quot;name&quot;:&quot;1072017223&quot;},{&quot;name&quot;:&quot;10721121191&quot;},{&quot;name&quot;:&quot;1072120695&quot;},{&quot;name&quot;:&quot;10721237215&quot;},{&quot;name&quot;:&quot;10722216218&quot;},{&quot;name&quot;:&quot;232116135&quot;},{&quot;name&quot;:&quot;232116820&quot;},{&quot;name&quot;:&quot;232117911&quot;},{&quot;name&quot;:&quot;232117980&quot;},{&quot;name&quot;:&quot;232117998&quot;},{&quot;name&quot;:&quot;232120365&quot;},{&quot;name&quot;:&quot;2321213201&quot;},{&quot;name&quot;:&quot;2321237118&quot;},{&quot;name&quot;:&quot;232315971&quot;},{&quot;name&quot;:&quot;501981226&quot;},{&quot;name&quot;:&quot;10301026&quot;},{&quot;name&quot;:&quot;1030981&quot;},{&quot;name&quot;:&quot;15755133201&quot;},{&quot;name&quot;:&quot;51209150252&quot;},{&quot;name&quot;:&quot;103610323&quot;},{&quot;name&quot;:&quot;1037228158&quot;},{&quot;name&quot;:&quot;1037228182&quot;},{&quot;name&quot;:&quot;1037228187&quot;},{&quot;name&quot;:&quot;1111682183&quot;},{&quot;name&quot;:&quot;237818179&quot;},{&quot;name&quot;:&quot;1037228192&quot;},{&quot;name&quot;:&quot;106910129&quot;},{&quot;name&quot;:&quot;1069117&quot;},{&quot;name&quot;:&quot;2085017021&quot;},{&quot;name&quot;:&quot;31137133&quot;},{&quot;name&quot;:&quot;692821350&quot;},{&quot;name&quot;:&quot;10691222&quot;},{&quot;name&quot;:&quot;106912330&quot;},{&quot;name&quot;:&quot;2331197163&quot;},{&quot;name&quot;:&quot;597200&quot;},{&quot;name&quot;:&quot;10691311&quot;},{&quot;name&quot;:&quot;6131231235&quot;},{&quot;name&quot;:&quot;106913222&quot;},{&quot;name&quot;:&quot;10691332&quot;},{&quot;name&quot;:&quot;6275138232&quot;},{&quot;name&quot;:&quot;9612611653&quot;},{&quot;name&quot;:&quot;10691611&quot;},{&quot;name&quot;:&quot;1069221100&quot;},{&quot;name&quot;:&quot;13713516875&quot;},{&quot;name&quot;:&quot;51228210163&quot;},{&quot;name&quot;:&quot;1069221169&quot;},{&quot;name&quot;:&quot;23231111&quot;},{&quot;name&quot;:&quot;501718395&quot;},{&quot;name&quot;:&quot;106922181&quot;},{&quot;name&quot;:&quot;10720113205&quot;},{&quot;name&quot;:&quot;107212027&quot;},{&quot;name&quot;:&quot;10721225131&quot;},{&quot;name&quot;:&quot;1072196207&quot;},{&quot;name&quot;:&quot;1763128131&quot;},{&quot;name&quot;:&quot;18173161236&quot;},{&quot;name&quot;:&quot;18173193172&quot;},{&quot;name&quot;:&quot;18173209155&quot;},{&quot;name&quot;:&quot;2321170103&quot;},{&quot;name&quot;:&quot;2321223235&quot;},{&quot;name&quot;:&quot;2323129216&quot;},{&quot;name&quot;:&quot;2323231103&quot;},{&quot;name&quot;:&quot;232397189&quot;},{&quot;name&quot;:&quot;5016192111&quot;},{&quot;name&quot;:&quot;1069232138&quot;},{&quot;name&quot;:&quot;10922861&quot;},{&quot;name&quot;:&quot;176311873&quot;},{&quot;name&quot;:&quot;5122820719&quot;},{&quot;name&quot;:&quot;109232115&quot;},{&quot;name&quot;:&quot;50112101217&quot;},{&quot;name&quot;:&quot;51211213193&quot;},{&quot;name&quot;:&quot;51211213202&quot;},{&quot;name&quot;:&quot;109317&quot;},{&quot;name&quot;:&quot;106912&quot;},{&quot;name&quot;:&quot;109513&quot;},{&quot;name&quot;:&quot;109325&quot;},{&quot;name&quot;:&quot;20717911119&quot;},{&quot;name&quot;:&quot;192168111&quot;},{&quot;name&quot;:&quot;2131367010&quot;},{&quot;name&quot;:&quot;192168110&quot;},{&quot;name&quot;:&quot;216218117189&quot;},{&quot;name&quot;:&quot;617058139&quot;},{&quot;name&quot;:&quot;6323631225&quot;},{&quot;name&quot;:&quot;68232199157&quot;},{&quot;name&quot;:&quot;68232199158&quot;},{&quot;name&quot;:&quot;68232199159&quot;},{&quot;name&quot;:&quot;9319111798&quot;}],&quot;links&quot;:[{&quot;source&quot;:0,&quot;target&quot;:1,&quot;value&quot;:1},{&quot;source&quot;:0,&quot;target&quot;:2,&quot;value&quot;:1},{&quot;source&quot;:0,&quot;target&quot;:3,&quot;value&quot;:1},{&quot;source&quot;:0,&quot;target&quot;:4,&quot;value&quot;:1},{&quot;source&quot;:5,&quot;target&quot;:6,&quot;value&quot;:4},{&quot;source&quot;:7,&quot;target&quot;:8,&quot;value&quot;:1},{&quot;source&quot;:7,&quot;target&quot;:9,&quot;value&quot;:1},{&quot;source&quot;:10,&quot;target&quot;:11,&quot;value&quot;:1},{&quot;source&quot;:10,&quot;target&quot;:12,&quot;value&quot;:1},{&quot;source&quot;:10,&quot;target&quot;:13,&quot;value&quot;:1},{&quot;source&quot;:14,&quot;target&quot;:15,&quot;value&quot;:1},{&quot;source&quot;:16,&quot;target&quot;:17,&quot;value&quot;:1},{&quot;source&quot;:16,&quot;target&quot;:18,&quot;value&quot;:1},{&quot;source&quot;:19,&quot;target&quot;:20,&quot;value&quot;:1},{&quot;source&quot;:19,&quot;target&quot;:21,&quot;value&quot;:1},{&quot;source&quot;:22,&quot;target&quot;:23,&quot;value&quot;:1},{&quot;source&quot;:22,&quot;target&quot;:24,&quot;value&quot;:1},{&quot;source&quot;:22,&quot;target&quot;:25,&quot;value&quot;:1},{&quot;source&quot;:26,&quot;target&quot;:27,&quot;value&quot;:1},{&quot;source&quot;:26,&quot;target&quot;:28,&quot;value&quot;:1},{&quot;source&quot;:29,&quot;target&quot;:6,&quot;value&quot;:17},{&quot;source&quot;:30,&quot;target&quot;:31,&quot;value&quot;:1},{&quot;source&quot;:30,&quot;target&quot;:32,&quot;value&quot;:1},{&quot;source&quot;:33,&quot;target&quot;:6,&quot;value&quot;:8},{&quot;source&quot;:34,&quot;target&quot;:35,&quot;value&quot;:1},{&quot;source&quot;:36,&quot;target&quot;:6,&quot;value&quot;:1},{&quot;source&quot;:37,&quot;target&quot;:38,&quot;value&quot;:1},{&quot;source&quot;:37,&quot;target&quot;:39,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:41,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:42,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:43,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:44,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:45,&quot;value&quot;:2},{&quot;source&quot;:40,&quot;target&quot;:46,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:47,&quot;value&quot;:1},{&quot;source&quot;:40,&quot;target&quot;:48,&quot;value&quot;:5},{&quot;source&quot;:49,&quot;target&quot;:35,&quot;value&quot;:1},{&quot;source&quot;:50,&quot;target&quot;:51,&quot;value&quot;:2},{&quot;source&quot;:52,&quot;target&quot;:15,&quot;value&quot;:1},{&quot;source&quot;:53,&quot;target&quot;:6,&quot;value&quot;:3},{&quot;source&quot;:54,&quot;target&quot;:55,&quot;value&quot;:1},{&quot;source&quot;:54,&quot;target&quot;:56,&quot;value&quot;:1},{&quot;source&quot;:57,&quot;target&quot;:6,&quot;value&quot;:2},{&quot;source&quot;:58,&quot;target&quot;:6,&quot;value&quot;:183},{&quot;source&quot;:59,&quot;target&quot;:60,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:61,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:62,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:63,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:64,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:65,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:66,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:67,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:68,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:69,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:70,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:71,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:72,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:73,&quot;value&quot;:1},{&quot;source&quot;:59,&quot;target&quot;:74,&quot;value&quot;:1},{&quot;source&quot;:75,&quot;target&quot;:15,&quot;value&quot;:1},{&quot;source&quot;:76,&quot;target&quot;:77,&quot;value&quot;:1},{&quot;source&quot;:76,&quot;target&quot;:78,&quot;value&quot;:1},{&quot;source&quot;:79,&quot;target&quot;:6,&quot;value&quot;:2},{&quot;source&quot;:80,&quot;target&quot;:51,&quot;value&quot;:2},{&quot;source&quot;:81,&quot;target&quot;:51,&quot;value&quot;:2},{&quot;source&quot;:82,&quot;target&quot;:83,&quot;value&quot;:1},{&quot;source&quot;:82,&quot;target&quot;:84,&quot;value&quot;:1},{&quot;source&quot;:85,&quot;target&quot;:51,&quot;value&quot;:1},{&quot;source&quot;:86,&quot;target&quot;:6,&quot;value&quot;:76},{&quot;source&quot;:87,&quot;target&quot;:88,&quot;value&quot;:1},{&quot;source&quot;:87,&quot;target&quot;:89,&quot;value&quot;:1},{&quot;source&quot;:87,&quot;target&quot;:90,&quot;value&quot;:3},{&quot;source&quot;:91,&quot;target&quot;:6,&quot;value&quot;:5},{&quot;source&quot;:92,&quot;target&quot;:93,&quot;value&quot;:1},{&quot;source&quot;:92,&quot;target&quot;:94,&quot;value&quot;:1},{&quot;source&quot;:95,&quot;target&quot;:6,&quot;value&quot;:3},{&quot;source&quot;:95,&quot;target&quot;:96,&quot;value&quot;:1},{&quot;source&quot;:97,&quot;target&quot;:6,&quot;value&quot;:3},{&quot;source&quot;:98,&quot;target&quot;:99,&quot;value&quot;:1},{&quot;source&quot;:98,&quot;target&quot;:100,&quot;value&quot;:1},{&quot;source&quot;:101,&quot;target&quot;:6,&quot;value&quot;:1},{&quot;source&quot;:102,&quot;target&quot;:103,&quot;value&quot;:1},{&quot;source&quot;:102,&quot;target&quot;:104,&quot;value&quot;:1},{&quot;source&quot;:105,&quot;target&quot;:106,&quot;value&quot;:1},{&quot;source&quot;:105,&quot;target&quot;:107,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:109,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:110,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:111,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:112,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:113,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:114,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:115,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:116,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:117,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:118,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:119,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:120,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:121,&quot;value&quot;:1},{&quot;source&quot;:108,&quot;target&quot;:122,&quot;value&quot;:1},{&quot;source&quot;:123,&quot;target&quot;:51,&quot;value&quot;:2},{&quot;source&quot;:124,&quot;target&quot;:125,&quot;value&quot;:1},{&quot;source&quot;:124,&quot;target&quot;:126,&quot;value&quot;:1},{&quot;source&quot;:127,&quot;target&quot;:128,&quot;value&quot;:1},{&quot;source&quot;:127,&quot;target&quot;:129,&quot;value&quot;:1},{&quot;source&quot;:127,&quot;target&quot;:130,&quot;value&quot;:1},{&quot;source&quot;:131,&quot;target&quot;:132,&quot;value&quot;:1},{&quot;source&quot;:131,&quot;target&quot;:133,&quot;value&quot;:1},{&quot;source&quot;:134,&quot;target&quot;:135,&quot;value&quot;:4},{&quot;source&quot;:136,&quot;target&quot;:135,&quot;value&quot;:1},{&quot;source&quot;:135,&quot;target&quot;:134,&quot;value&quot;:4},{&quot;source&quot;:135,&quot;target&quot;:136,&quot;value&quot;:1},{&quot;source&quot;:137,&quot;target&quot;:138,&quot;value&quot;:9},{&quot;source&quot;:139,&quot;target&quot;:138,&quot;value&quot;:2},{&quot;source&quot;:140,&quot;target&quot;:136,&quot;value&quot;:1},{&quot;source&quot;:141,&quot;target&quot;:138,&quot;value&quot;:1},{&quot;source&quot;:142,&quot;target&quot;:136,&quot;value&quot;:1},{&quot;source&quot;:143,&quot;target&quot;:136,&quot;value&quot;:1},{&quot;source&quot;:144,&quot;target&quot;:136,&quot;value&quot;:1},{&quot;source&quot;:145,&quot;target&quot;:136,&quot;value&quot;:1}],&quot;records&quot;:119}|">
+  </PIN>
+  <PIN pinname="Rows" visible="0" values="|1|">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <NODE id="48" nodename="DisjointGraph (D3)" systemname="DisjointGraph (D3)" componentmode="Hidden">
+  <BOUNDS type="Node" left="3525" top="10185" width="100" height="100">
+  </BOUNDS>
+  <PIN pinname="Element1" visible="1">
+  </PIN>
+  <PIN pinname="Connection" visible="1">
+  </PIN>
+  <PIN pinname="Element2" visible="1">
+  </PIN>
+  <PIN pinname="Update" visible="1">
+  </PIN>
+  <PIN pinname="Add" visible="1">
+  </PIN>
+  <PIN pinname="Descriptive Name" visible="0" values="||">
+  </PIN>
+  </NODE>
+  <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="4" dstpinname="URL">
+  </LINK>
+  <LINK srcnodeid="6" srcpinname="Output" dstnodeid="4" dstpinname="Refresh">
+  </LINK>
+  <LINK srcnodeid="13" srcpinname="Layers Out" dstnodeid="14" dstpinname="Input">
+  </LINK>
+  <LINK srcnodeid="14" srcpinname="Output" dstnodeid="12" dstpinname="Parent">
+  </LINK>
+  <LINK srcnodeid="17" srcpinname="Transform Out" dstnodeid="16" dstpinname="Transform In">
+  </LINK>
+  <LINK srcnodeid="18" srcpinname="Output" dstnodeid="17" dstpinname="TranslateX">
+  </LINK>
+  <LINK srcnodeid="19" srcpinname="Style Out" dstnodeid="16" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="14" srcpinname="Output" dstnodeid="20" dstpinname="Parent">
+  </LINK>
+  <LINK srcnodeid="24" srcpinname="Transform Out" dstnodeid="23" dstpinname="Transform In">
+  </LINK>
+  <LINK srcnodeid="25" srcpinname="Output" dstnodeid="24" dstpinname="TranslateX">
+  </LINK>
+  <LINK srcnodeid="19" srcpinname="Style Out" dstnodeid="23" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="26" srcpinname="Output String" dstnodeid="20" dstpinname="Text">
+  </LINK>
+  <LINK srcnodeid="16" srcpinname="Style Out" dstnodeid="12" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="23" srcpinname="Style Out" dstnodeid="20" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="13" srcpinname="Layers Out" dstnodeid="27" dstpinname="Parent">
+  </LINK>
+  <LINK srcnodeid="29" srcpinname="Transform Out" dstnodeid="28" dstpinname="Transform In">
+  </LINK>
+  <LINK srcnodeid="19" srcpinname="Style Out" dstnodeid="28" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="28" srcpinname="Style Out" dstnodeid="27" dstpinname="Style In">
+  </LINK>
+  <LINK srcnodeid="12" srcpinname="Layers Out" dstnodeid="32" dstpinname="Element">
+  </LINK>
+  <LINK srcnodeid="32" srcpinname="Output" dstnodeid="33" dstpinname="Input">
+  </LINK>
+  <LINK srcnodeid="33" srcpinname="Output 1" dstnodeid="34" dstpinname="Input String">
+  </LINK>
+  <LINK srcnodeid="33" srcpinname="Output 2" dstnodeid="35" dstpinname="Input String">
+  </LINK>
+  <LINK srcnodeid="33" srcpinname="Output 3" dstnodeid="36" dstpinname="Input String">
+  </LINK>
+  <LINK srcnodeid="27" srcpinname="Layers Out" dstnodeid="38" dstpinname="Element">
+  </LINK>
+  <LINK srcnodeid="27" srcpinname="Layers Out" dstnodeid="40" dstpinname="Element">
+  </LINK>
+  <LINK srcnodeid="32" srcpinname="Output" dstnodeid="41" dstpinname="Input 1">
+  </LINK>
+  <LINK srcnodeid="41" srcpinname="Output" dstnodeid="42" dstpinname="Input">
+  </LINK>
+  <LINK srcnodeid="42" srcpinname="Output" dstnodeid="44" dstpinname="Input 1">
+  </LINK>
+  <LINK srcnodeid="44" srcpinname="Output" dstnodeid="43" dstpinname="Input 1">
+  </LINK>
+  <LINK srcnodeid="40" srcpinname="OnEvent" dstnodeid="43" dstpinname="Input 2">
+  </LINK>
+  <LINK srcnodeid="43" srcpinname="Output" dstnodeid="45" dstpinname="Y Input Value">
+  </LINK>
+  <LINK srcnodeid="34" srcpinname="Output String" dstnodeid="48" dstpinname="Element1">
+  </LINK>
+  <LINK srcnodeid="35" srcpinname="Output String" dstnodeid="48" dstpinname="Connection">
+  </LINK>
+  <LINK srcnodeid="36" srcpinname="Output String" dstnodeid="48" dstpinname="Element2">
+  </LINK>
+  <LINK srcnodeid="31" srcpinname="Output" dstnodeid="48" dstpinname="Update">
+  </LINK>
+  <LINK srcnodeid="45" srcpinname="Y Output Value" dstnodeid="48" dstpinname="Add">
+  </LINK>
+  </PATCH>
