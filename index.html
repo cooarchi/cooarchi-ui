@@ -31,11 +31,11 @@
 	<div class="input_fields">
 	
 		<div class="input_column">
-	  <button><span class="upload"></span></button>
+	  <button><span class="upload" id="btn_upload1"></span></button>
 	  <button><span class="longtext"></span></button>
 	  <input type="text" id="e1" name="fname"><br>
-	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Location</span><br>
-	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Triggerwarning</span>
+	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Location</span><br>
+	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
 	  </div>
 	  
 	  <div class="input_column">
@@ -45,16 +45,34 @@
 	  </div>
 	  
 	  <div class="input_column">
-	  <button><span class="upload"></span></button>
+	  <button><span class="upload" id="btn_upload2"></span></button>
 	  <button><span class="longtext"></span></button>
 	  <input type="text" id="e2" name="lname">
 	  <br>
-	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Location</span><br>
-	  <input type="checkbox" class="checkbox" /> <span class="checkbox_text">Triggerwarning</span>
+	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Location</span><br>
+	  <input type="checkbox" class="checkbox" id="trigger2"/> <span class="checkbox_text">Triggerwarning</span>
 	  </div>
 	  
 	  <a class="button_cooarch" id="bold">cooArch!</a>
     </div>
+	
+	
+
+<div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
+
+<a href="#" class="close">
+
+    <div id="drag_upload_file">
+        <p>Drop file here</p>
+        <p>or</p>
+        <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
+        <input type="file" id="selectfile" />
+    </div>
+</div>
+<div class="img-content"></div>
+<script src="js/upload.js"></script>
+
+
 	
 	
 	
@@ -63,7 +81,22 @@
 
   <script>
 	
-
+	var upload_active = false
+	$('#btn_upload1').click(function() {
+		$("#drop_file_zone").css("display", "block");
+		upload_active = true
+	  });
+	  
+	$('#btn_upload2').click(function() {
+		$("#drop_file_zone").css("display", "block");
+		upload_active = true
+	});
+	
+	if(upload_active == true){
+		$('#map').click(function() {
+			$("#drop_file_zone").css("display", "none");
+		});
+	}
 	
   
   	var test_savedata = { "nodes": [ { "label": "cooArchi", "index": 0, "isLocation": true, "isLongText": false, "mediaType": "none", "triggerWarning": false }, { "label": "foo321456", "index": 0, "isLocation": false, "isLongText": false, "mediaType": "none", "triggerWarning": false } ], "links": [ { "index": 23, "label": "dwa", "source": { "label": "cooArchi" }, "target": { "label": "foo321456" } } ] } 
@@ -268,7 +301,6 @@
 		update_images.exit().remove();
         nodeImages = update_images.enter()
 			.append("image")
-			.attr("xlink:href", "https://icons.iconarchive.com/icons/google/chrome/48/Google-Chrome-icon.png")
 			.attr("width", image_width)
 			.attr("height", image_height)
 			.merge(update_images);
@@ -432,16 +464,23 @@
 		}
 		
 		
+		//checkboxes
+		var checkbox_loc1 = document.getElementById("location1").checked; 
+		var checkbox_trig1 = document.getElementById("trigger1").checked; 
+		var checkbox_loc2 = document.getElementById("location2").checked; 
+		var checkbox_trig2 = document.getElementById("trigger2").checked; 
+		
+		
         var n1 = {
           index: index1,
 		  label: id1,
 		  isCoreElement: false, 
 		  isFile: false, 
-		  isLocation: false, 
+		  isLocation: checkbox_loc1 , 
 		  isLongText: false, 
 		  longText: null, 
 		  mediaType: null, 
-		  triggerWarning: false,
+		  triggerWarning: checkbox_trig1,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
@@ -450,11 +489,11 @@
 		  label: id2,
 		  isCoreElement: false, 
 		  isFile: false, 
-		  isLocation: false, 
+		  isLocation: checkbox_loc2, 
 		  isLongText: false, 
 		  longText: null, 
 		  mediaType: null, 
-		  triggerWarning: false,
+		  triggerWarning: checkbox_trig2,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
@@ -503,7 +542,11 @@
 		//console.log(sendCooarchi)
       }
 	  
-	  
+	 
+
+
+
+  
 	  //LOAD
 	//https://stage.cooarchi.net/data?delta=1
 	//delta pro minute
