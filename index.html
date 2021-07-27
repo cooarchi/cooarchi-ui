@@ -206,8 +206,8 @@
 		var collision_radius = 100;
 		
 		//image SETTINGS
-		image_height = 30;
-		image_width = 30;
+		image_height = 50;
+		image_width = 50;
 		
       var simulation = d3.forceSimulation(nodesArray)
         .force("charge", d3.forceManyBody().strength(charge_strength))
@@ -242,7 +242,7 @@
         .attr("class", "linknames");
 
 
-
+	//THIS PART IS ONLY FOR TESTDATA
 
 		var links = g_links.selectAll(".glinks")
 		.data(linksArray)
@@ -270,7 +270,11 @@
 	 var nodeImages = g_images.selectAll("image")
         .data(nodesArray)
         .enter().append("image")
-		.attr("xlink:href", ".primitives/cube_512.png")
+		.attr("xlink:href", function(d){
+			   if (d.isLocation == true){
+			   return "primitives/location.png"
+			   }else{return "primitives/cube_bevel_azure512.png"}
+			})
         .attr("x", (d) => { return d.x; })
         .attr("y", (d) => { return d.y; })
 		.attr("width", 16)
@@ -283,22 +287,15 @@
         .attr("cx", (d) => { return d.x; })
         .attr("cy", (d) => { return d.y; })
 		.attr('fill', "url(#myImage)")
-		
-		 
-		 
-	
 
-		
-        //.on("click", remove)
-		
 		
 		//labels on nodes
 		var lables = g_lables.selectAll("text")
         .data(nodesArray)
         .enter().append("text")
-
 		.text((d) => { return d.label; })
         .on("click", remove)
+		
 		
 		//labels on text
 		var linkText = g_linknames.selectAll(".text")
@@ -336,6 +333,11 @@
 		update_images.exit().remove();
         nodeImages = update_images.enter()
 			.append("image")
+			.attr("xlink:href", function(d){
+			   if (d.isLocation == true){
+			   return "primitives/location.png"
+			   }else{return "primitives/cube_bevel_azure512.png"}
+			})
 			.attr("width", image_width)
 			.attr("height", image_height)
 			.merge(update_images);
@@ -386,7 +388,11 @@
       function ticked() {
 	  
 	  	nodeImages	
-			.attr("xlink:href", "primitives/cube_512.png")
+			.attr("xlink:href", function(d){
+			   if (d.isLocation == true){
+			   return "primitives/location.png"
+			   }else{return "primitives/cube_bevel_azure512.png"}
+			})
 			.attr("x", (d) => { return d.x -image_width/2; })
 			.attr("y", (d) => { return d.y -image_height/2; })
 		
@@ -578,7 +584,115 @@
       }
 	  
 	 
+////LOAD ELEMENTS ONE BY ONE
+      function load_elements(id1,id2, linkname, save, response) {
+		var index1
+		var index2
+		var i1_exist = false;
+		var i2_exist = false;
+	  
+		var existing_index1 = nodesArray.map(function(x) {return x.label; }).indexOf(id1);
+		if(existing_index1 !== -1){
+		index1 = existing_index1;
+		i1_exist = true;
+		}else{
+		index1 = nodesArray.length
+		}
+		
+		var existing_index2 = nodesArray.map(function(x) {return x.label; }).indexOf(id2);
+		if(existing_index2 !== -1){
+		index2 = existing_index2;
+		i2_exist = true;
+		}else{
+		index2 = nodesArray.length
+		}
+		
+		
+		var response_index1 = response.nodes.map(function(x) {return x.label; }).indexOf(id1);
+		var response_index2 = response.nodes.map(function(x) {return x.label; }).indexOf(id2);
+		
+		var response_islocation1 = response.nodes[response_index1].isLocation;
+		var response_islocation2 = response.nodes[response_index2].isLocation;
+		
+	
+		
+		//checkboxes
+		var checkbox_loc1 = document.getElementById("location1").checked; 
+		var checkbox_trig1 = document.getElementById("trigger1").checked; 
+		var checkbox_loc2 = document.getElementById("location2").checked; 
+		var checkbox_trig2 = document.getElementById("trigger2").checked; 
+		
+		
+        var n1 = {
+          index: index1,
+		  label: id1,
+		  isCoreElement: false, 
+		  isFile: false, 
+		  isLocation: response_islocation1 , 
+		  isLongText: false, 
+		  longText: null, 
+		  mediaType: null, 
+		  triggerWarning: checkbox_trig1,
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+		var n2 = {
+          index: index2,
+		  label: id2,
+		  isCoreElement: false, 
+		  isFile: false, 
+		  isLocation: response_islocation2, 
+		  isLongText: false, 
+		  longText: null, 
+		  mediaType: null, 
+		  triggerWarning: checkbox_trig2,
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+		
+		var l_source = i1_exist ? nodesArray[index1] : n1;
+		var l_target = i2_exist ? nodesArray[index2] : n2;
+		
+        var l = {
+          index: linksArray.length,
+		  label: linkname,
+          source: l_source,
+          target: l_target
+        }
+		
+        linksArray.push(l) 
 
+        if(i1_exist==false){nodesArray.push(n1) }
+
+
+		if(i2_exist==false){nodesArray.push(n2) }
+
+        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+		
+		var sendObject = {}
+		sendObject.nodes=[n1,n2] //avoid sending both nodes if not added
+		sendObject.links=[l]
+		
+		
+		var sendString = JSON.stringify(sendObject)
+		//console.log(sendString)
+		var testString = JSON.stringify(test_savedata)
+		//console.log(testString)
+		if(save==true){
+			save_data(sendString)
+		}
+		
+		
+		//var completeCoarchi = {}
+		//completeCoarchi.nodes=nodesArray
+		//completeCoarchi.links=linksArray
+		//sendCooarchi = JSON.stringify(completeCoarchi)
+		//console.log(sendCooarchi)
+      }
 
 
   
@@ -607,7 +721,7 @@
 				
 		
 		
-				add_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false)
+				load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, response)
 			}
 			
 			
