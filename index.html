@@ -30,12 +30,18 @@
 
 	<div class="input_fields">
 	
+	
+	
 		<div class="input_column">
+		
 	  <button><span class="upload" id="btn_upload1"></span></button>
 	  <button><span class="longtext" id="btn_text1"></span></button>
+	  
 	  <input class="input_text" type="text" id="e1" name="fname"><br>
-	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Location</span><br>
+	  
+	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Is a Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
+	  
 	  </div>
 	  
 	  <div class="input_column">
@@ -45,17 +51,22 @@
 	  </div>
 	  
 	  <div class="input_column">
+	  
 	  <button><span class="upload" id="btn_upload2" ></span></button>
 	  <button><span class="longtext" id="btn_text2"></span></button>
+	  
 	  <input class="input_text" type="text" id="e2" name="lname">
 	  <br>
-	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Location</span><br>
+	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Is a Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger2"/> <span class="checkbox_text">Triggerwarning</span>
+	  
 	  </div>
+	  
+	  
 	  <div class="input_column">
-	  <a class="button_cooarch" id="bold">cooArch!</a><br>
-	  <a class="button_cooarch" id="bold">reset</a><br>
-	  <a class="button_cooarch" id="bold">hide</a><br>
+	  <a class="button_ui" id="button_cooarch">cooArch!</a><br>
+	  <a class="button_ui" id="bold">reset</a><br>
+	  <a class="button_ui" id="bold">hide</a><br>
 	  </div>
     </div>
 	
@@ -138,6 +149,9 @@
 	
 	/////UI////////
 	
+	
+	
+
 	
 	//FILE UPLOAD UI
 	$('#btn_upload1').click(function() {
@@ -231,6 +245,7 @@ function ajax_file_upload(file_obj) {
 					ui_parameter_e1.url =  this.responseText
 					ui_parameter_e1.mediaType = media_type
 					ui_parameter_e1.isFile = true
+					$('btn_upload1').addClass('active');
 				}
 				if(upload_active2){
 					ui_parameter_e2.url =  this.responseText
@@ -619,36 +634,38 @@ function ajax_file_upload(file_obj) {
 		}
 		
 		
-		//checkboxes
-		var checkbox_loc1 = document.getElementById("location1").checked; 
-		var checkbox_trig1 = document.getElementById("trigger1").checked; 
-		var checkbox_loc2 = document.getElementById("location2").checked; 
-		var checkbox_trig2 = document.getElementById("trigger2").checked; 
+		ui_parameter_e1.isLocation = document.getElementById("location1").checked; 
+		ui_parameter_e1.triggerWarning = document.getElementById("trigger1").checked; 
+		ui_parameter_e2.isLocation = document.getElementById("location2").checked; 
+		ui_parameter_e2.triggerWarning = document.getElementById("trigger2").checked; 
 		
+		console.log(ui_parameter_e1);
 		
         var n1 = {
           index: index1,
 		  label: id1,
-		  isCoreElement: false, 
-		  isFile: false, 
-		  isLocation: checkbox_loc1 , 
-		  isLongText: false, 
-		  longText: null, 
-		  mediaType: null, 
-		  triggerWarning: checkbox_trig1,
+		  isCoreElement: ui_parameter_e1.isCoreElement, 
+		  isFile: ui_parameter_e1.isFile, 
+		  isLocation: ui_parameter_e1.isLocation , 
+		  isLongText: ui_parameter_e1.isLongText, 
+		  longText: ui_parameter_e1.longText, 
+		  mediaType: ui_parameter_e1.mediaType, 
+		  triggerWarning: ui_parameter_e1.triggerWarning,
+		  url: ui_parameter_e1.url,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
 		var n2 = {
           index: index2,
 		  label: id2,
-		  isCoreElement: false, 
-		  isFile: false, 
-		  isLocation: checkbox_loc2, 
-		  isLongText: false, 
-		  longText: null, 
-		  mediaType: null, 
-		  triggerWarning: checkbox_trig2,
+		  isCoreElement: ui_parameter_e2.isCoreElement, 
+		  isFile: ui_parameter_e2.isFile, 
+		  isLocation: ui_parameter_e2.isLocation , 
+		  isLongText: ui_parameter_e2.isLongText, 
+		  longText: ui_parameter_e2.longText, 
+		  mediaType: ui_parameter_e2.mediaType, 
+		  triggerWarning: ui_parameter_e2.triggerWarning,
+		  url: ui_parameter_e2.url,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
@@ -682,19 +699,16 @@ function ajax_file_upload(file_obj) {
 		
 		
 		var sendString = JSON.stringify(sendObject)
-		//console.log(sendString)
+
+		
 		var testString = JSON.stringify(test_savedata)
-		//console.log(testString)
+
+		
 		if(save==true){
 			save_data(sendString)
 		}
 		
-		
-		//var completeCoarchi = {}
-		//completeCoarchi.nodes=nodesArray
-		//completeCoarchi.links=linksArray
-		//sendCooarchi = JSON.stringify(completeCoarchi)
-		//console.log(sendCooarchi)
+
       }
 	  
 	 
@@ -705,15 +719,15 @@ function ajax_file_upload(file_obj) {
 		var i1_exist = false;
 		var i2_exist = false;
 	  
-		var existing_index1 = nodesArray.map(function(x) {return x.label; }).indexOf(id1);
+		var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
 		if(existing_index1 !== -1){
 		index1 = existing_index1;
 		i1_exist = true;
 		}else{
 		index1 = nodesArray.length
 		}
-		
-		var existing_index2 = nodesArray.map(function(x) {return x.label; }).indexOf(id2);
+
+		var existing_index2 = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
 		if(existing_index2 !== -1){
 		index2 = existing_index2;
 		i2_exist = true;
@@ -722,14 +736,15 @@ function ajax_file_upload(file_obj) {
 		}
 		
 		
-		var response_index1 = response.nodes.map(function(x) {return x.label; }).indexOf(id1);
-		var response_index2 = response.nodes.map(function(x) {return x.label; }).indexOf(id2);
+		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
+		var response_index2 = response.nodes.map(function(x) {return x.id; }).indexOf(id2);
 
 		
 		
         var n1 = {
           index: index1,
-		  label: id1,
+		  id: response.nodes[response_index1].id,
+		  label: response.nodes[response_index1].label,
 		  isCoreElement: response.nodes[response_index1].isCoreElement, 
 		  isFile: response.nodes[response_index1].isFile, 
 		  isLocation: response.nodes[response_index1].isLocation , 
@@ -737,12 +752,14 @@ function ajax_file_upload(file_obj) {
 		  longText: response.nodes[response_index1].longText, 
 		  mediaType: response.nodes[response_index1].mediaType, 
 		  triggerWarning: response.nodes[response_index1].isTrigger,
+		  url: "",
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
 		var n2 = {
           index: index2,
-		  label: id2,
+		  id: response.nodes[response_index2].id,
+		  label: response.nodes[response_index2].label,
 		  isCoreElement: response.nodes[response_index2].isCoreElement, 
 		  isFile: response.nodes[response_index2].isFile, 
 		  isLocation: response.nodes[response_index2].isLocation , 
@@ -750,10 +767,12 @@ function ajax_file_upload(file_obj) {
 		  longText: response.nodes[response_index2].longText, 
 		  mediaType: response.nodes[response_index2].mediaType, 
 		  triggerWarning: response.nodes[response_index2].isTrigger,
+		  url: "",
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
 		
+		console.log(i1_exist)
 		var l_source = i1_exist ? nodesArray[index1] : n1;
 		var l_target = i2_exist ? nodesArray[index2] : n2;
 		
@@ -859,7 +878,7 @@ function ajax_file_upload(file_obj) {
 
 	  
 	  
-		$( ".button_cooarch" ).click(function() {
+		$( "#button_cooarch" ).click(function() {
 		  //console.log( "Handler for .click() called." );
 		  var e1= $("#e1").val();
 		  var rel= $("#rel").val();
