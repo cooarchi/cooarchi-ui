@@ -211,16 +211,71 @@ function file_explorer() {
     document.getElementById('selectfile').click();
     document.getElementById('selectfile').onchange = function() {
         fileobj = document.getElementById('selectfile').files[0];
-        ajax_file_upload(fileobj);
+        //ajax_file_upload(fileobj);
+		upload_data(fileobj)
     };
 }
   
+  
+  	function upload_data(file_obj){
+	
+		if(file_obj != undefined) {
+			var form_data = new FormData();                  
+			form_data.append('file', file_obj);
+			
+			var settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": "https://stage.cooarchi.net/upload",
+		  "method": "POST",
+		  "headers": {
+			"Content-Type": "image/jpeg"
+		  },
+		  "processData": false,
+		  "data": form_data
+		}
+
+			$.ajax(settings).done(function (response) {
+				console.log(response)
+			    oOutput = document.querySelector('.img-content');
+			    oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
+				
+				var fileending = this.response.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
+				var media_type = "none";
+				
+				if(fileending == "jpg" || fileending =="png"){
+					media_type = "image"
+				}
+				if(fileending == "mp3" || fileending =="wav"){
+					media_type = "audio"
+				}
+				if(fileending == "mp4" || fileending =="ogg"){
+					media_type = "video"
+				}
+				
+				if(upload_active1){
+					ui_parameter_e1.url =  this.responseText
+					ui_parameter_e1.mediaType = media_type
+					ui_parameter_e1.isFile = true
+					$('btn_upload1').addClass('active');
+				}
+				if(upload_active2){
+					ui_parameter_e2.url =  this.responseText
+					ui_parameter_e2.mediaType = media_type
+					ui_parameter_e2.isFile = true
+				}
+			});
+		}
+	}
+	
+	
 function ajax_file_upload(file_obj) {
     if(file_obj != undefined) {
         var form_data = new FormData();                  
         form_data.append('file', file_obj);
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "ajax.php", true);
+		xhttp.open("POST", "https://stage.cooarchi.net/upload", true);
+        //xhttp.open("POST", "ajax.php", true);
         xhttp.onload = function(event) {
             oOutput = document.querySelector('.img-content');
             if (xhttp.status == 200) {
@@ -617,7 +672,7 @@ function ajax_file_upload(file_obj) {
 		var i1_exist = false;
 		var i2_exist = false;
 	  
-		var existing_index1 = nodesArray.map(function(x) {return x.label; }).indexOf(id1);
+		var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
 		if(existing_index1 !== -1){
 		index1 = existing_index1;
 		i1_exist = true;
@@ -625,7 +680,7 @@ function ajax_file_upload(file_obj) {
 		index1 = nodesArray.length
 		}
 		
-		var existing_index2 = nodesArray.map(function(x) {return x.label; }).indexOf(id2);
+		var existing_index2 = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
 		if(existing_index2 !== -1){
 		index2 = existing_index2;
 		i2_exist = true;
@@ -639,8 +694,7 @@ function ajax_file_upload(file_obj) {
 		ui_parameter_e2.isLocation = document.getElementById("location2").checked; 
 		ui_parameter_e2.triggerWarning = document.getElementById("trigger2").checked; 
 		
-		console.log(ui_parameter_e1);
-		
+		console.log(ui_parameter_e1.isFile )
         var n1 = {
           index: index1,
 		  label: id1,
