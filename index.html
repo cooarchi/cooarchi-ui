@@ -33,27 +33,30 @@
 		<div class="input_column">
 	  <button><span class="upload" id="btn_upload1"></span></button>
 	  <button><span class="longtext" id="btn_text1"></span></button>
-	  <input type="text" id="e1" name="fname"><br>
+	  <input class="input_text" type="text" id="e1" name="fname"><br>
 	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Location</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
 	  </div>
 	  
 	  <div class="input_column">
 	  <br>
-	  <label for="rel">Relation</label><br>
-	  <input type="text" id="rel" name="lname">
+	  <label for="rel"></label><br>
+	  <input class="input_text" type="text" id="rel" name="lname">
 	  </div>
 	  
 	  <div class="input_column">
-	  <button><span class="upload" id="btn_upload2"></span></button>
+	  <button><span class="upload" id="btn_upload2" ></span></button>
 	  <button><span class="longtext" id="btn_text2"></span></button>
-	  <input type="text" id="e2" name="lname">
+	  <input class="input_text" type="text" id="e2" name="lname">
 	  <br>
 	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Location</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger2"/> <span class="checkbox_text">Triggerwarning</span>
 	  </div>
-	  
-	  <a class="button_cooarch" id="bold">cooArch!</a>
+	  <div class="input_column">
+	  <a class="button_cooarch" id="bold">cooArch!</a><br>
+	  <a class="button_cooarch" id="bold">reset</a><br>
+	  <a class="button_cooarch" id="bold">hide</a><br>
+	  </div>
     </div>
 	
 	
@@ -64,10 +67,12 @@
 
 
     <div id="drag_upload_file">
-        <p>Drop file here</p>
-        <p>or</p>
+        <div>Drop file here or</div>
+
         <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
         <input type="file" id="selectfile" />
+		
+		<div class="img-content"></div>
     </div>
 </div>
 </div>
@@ -86,7 +91,7 @@
 </div>
 
 
-<div class="img-content"></div>
+
 <script src="js/upload.js"></script>
 
 
@@ -97,25 +102,63 @@
 
 
   <script>
-	//upload logic
-	var upload_active = false
+  
+	var ui_parameter_e1 = {}
+	var ui_parameter_e2 = {}
+  
+  
+   //initialize menu states
+	var upload_active1 = false
+	var upload_active2 = false
+	
+	var text_active1 = false
+	var text_active2 = false
+
+	
+	//initialize ui parameters for each elements
+	ui_parameter_e1.isCoreElement = false
+	ui_parameter_e1.isFile = false
+	ui_parameter_e1.isLocation = false 
+	ui_parameter_e1.isLongText = false 
+	ui_parameter_e1.longText = null
+	ui_parameter_e1.mediaType = null 
+	ui_parameter_e1.triggerWarning = false
+	ui_parameter_e1.url = ' '
+	
+	
+	ui_parameter_e1.isCoreElement = false
+	ui_parameter_e1.isFile = false
+	ui_parameter_e1.isLocation = false 
+	ui_parameter_e1.isLongText = false 
+	ui_parameter_e1.longText = null
+	ui_parameter_e1.mediaType = null 
+	ui_parameter_e1.triggerWarning = false
+	ui_parameter_e2.url = ' '	  
+		  
+	
+	/////UI////////
+	
+	
+	//FILE UPLOAD UI
 	$('#btn_upload1').click(function() {
 		$(".file_and_blur").css("display", "block");
-		upload_active = true
+		upload_active1 = true
 	  });
 	  
 	$('#btn_upload2').click(function() {
 		$(".file_and_blur").css("display", "block");
-		upload_active = true
+		upload_active2 = true
 	});
 	
 
 		$('.close_symbol').click(function() {
 			$(".file_and_blur").css("display", "none");
+			upload_active1 = false
+			upload_active2 = false
 		});
 		
 		
-	//text input logic	
+	//TEXT INPUT UI
 	var text_active = false
 	$('#btn_text1').click(function() {
 		$(".text_and_blur").css("display", "block");
@@ -140,6 +183,77 @@
 	//global variables
 	var init = false;
   
+  
+///////	FILE UPLOAD
+	
+	var fileobj;
+function upload_file(e) {
+    e.preventDefault();
+    fileobj = e.dataTransfer.files[0];
+    ajax_file_upload(fileobj);
+}
+  
+function file_explorer() {
+    document.getElementById('selectfile').click();
+    document.getElementById('selectfile').onchange = function() {
+        fileobj = document.getElementById('selectfile').files[0];
+        ajax_file_upload(fileobj);
+    };
+}
+  
+function ajax_file_upload(file_obj) {
+    if(file_obj != undefined) {
+        var form_data = new FormData();                  
+        form_data.append('file', file_obj);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "ajax.php", true);
+        xhttp.onload = function(event) {
+            oOutput = document.querySelector('.img-content');
+            if (xhttp.status == 200) {
+			
+			
+                oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
+				
+				var fileending = this.responseText.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
+				var media_type = "none";
+				
+				if(fileending == "jpg" || fileending =="png"){
+					media_type = "image"
+				}
+				if(fileending == "mp3" || fileending =="wav"){
+					media_type = "audio"
+				}
+				if(fileending == "mp4" || fileending =="ogg"){
+					media_type = "video"
+				}
+				
+				if(upload_active1){
+					ui_parameter_e1.url =  this.responseText
+					ui_parameter_e1.mediaType = media_type
+					ui_parameter_e1.isFile = true
+				}
+				if(upload_active2){
+					ui_parameter_e2.url =  this.responseText
+					ui_parameter_e2.mediaType = media_type
+					ui_parameter_e2.isFile = true
+				}
+				
+				
+				
+				
+            } else {
+                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+            }
+        }
+ 
+        xhttp.send(form_data);
+    }
+}
+
+
+
+
+
   
     window.onload = () => {
 	
@@ -179,7 +293,7 @@
 		
 		
 		if(init==true){
-			nodesArray = d3.range(n).map(function (i) { return { index: i, label: "cooArchi",isCoreElement: false, isFile: false, isLocation: false, isLongText: false, longText: null, mediaType: null, triggerWarning: false }; }),
+			nodesArray = d3.range(n).map(function (i) { return { index: i, label: "cooArchi",isCoreElement: false, isFile: false, isLocation: false, isLongText: false, longText: null, mediaType: null, triggerWarning: false , url: " "}; }),
 			//nodesArray = testdata.nodes
 			
 			
@@ -610,42 +724,32 @@
 		
 		var response_index1 = response.nodes.map(function(x) {return x.label; }).indexOf(id1);
 		var response_index2 = response.nodes.map(function(x) {return x.label; }).indexOf(id2);
-		
-		var response_islocation1 = response.nodes[response_index1].isLocation;
-		var response_islocation2 = response.nodes[response_index2].isLocation;
-		
-	
-		
-		//checkboxes
-		var checkbox_loc1 = document.getElementById("location1").checked; 
-		var checkbox_trig1 = document.getElementById("trigger1").checked; 
-		var checkbox_loc2 = document.getElementById("location2").checked; 
-		var checkbox_trig2 = document.getElementById("trigger2").checked; 
+
 		
 		
         var n1 = {
           index: index1,
 		  label: id1,
-		  isCoreElement: false, 
-		  isFile: false, 
-		  isLocation: response_islocation1 , 
-		  isLongText: false, 
-		  longText: null, 
-		  mediaType: null, 
-		  triggerWarning: checkbox_trig1,
+		  isCoreElement: response.nodes[response_index1].isCoreElement, 
+		  isFile: response.nodes[response_index1].isFile, 
+		  isLocation: response.nodes[response_index1].isLocation , 
+		  isLongText: response.nodes[response_index1].isLongText, 
+		  longText: response.nodes[response_index1].longText, 
+		  mediaType: response.nodes[response_index1].mediaType, 
+		  triggerWarning: response.nodes[response_index1].isTrigger,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
 		var n2 = {
           index: index2,
 		  label: id2,
-		  isCoreElement: false, 
-		  isFile: false, 
-		  isLocation: response_islocation2, 
-		  isLongText: false, 
-		  longText: null, 
-		  mediaType: null, 
-		  triggerWarning: checkbox_trig2,
+		  isCoreElement: response.nodes[response_index2].isCoreElement, 
+		  isFile: response.nodes[response_index2].isFile, 
+		  isLocation: response.nodes[response_index2].isLocation , 
+		  isLongText: response.nodes[response_index2].isLongText, 
+		  longText: response.nodes[response_index2].longText, 
+		  mediaType: response.nodes[response_index2].mediaType, 
+		  triggerWarning: response.nodes[response_index2].isTrigger,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
