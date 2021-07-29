@@ -204,7 +204,8 @@
 function upload_file(e) {
     e.preventDefault();
     fileobj = e.dataTransfer.files[0];
-    ajax_file_upload(fileobj);
+    //ajax_file_upload(fileobj);
+	upload_data(fileobj)
 }
   
 function file_explorer() {
@@ -384,7 +385,7 @@ function ajax_file_upload(file_obj) {
 		
 		
 		//FORCE SETTINGS
-		var charge_strength = -200;
+		var charge_strength = -10;
 		var link_distance = 20;
 		var link_strenght = 1;
 		var collision_radius = 100;
@@ -397,9 +398,10 @@ function ajax_file_upload(file_obj) {
         .force("charge", d3.forceManyBody().strength(charge_strength))
         .force("link", d3.forceLink(linksArray).distance(link_distance).strength(link_strenght))
 		.force('collision', d3.forceCollide().radius(collision_radius))
+		//.force("radial", d3.forceRadial(1000, w / 2, h / 2))
         //.force("center", d3.forceCenter(w/2, h/2))
-        .force("x", d3.forceX(w / 2))
-        .force("y", d3.forceY(h / 2))
+        //.force("x", d3.forceX(w / 2))
+        //.force("y", d3.forceY(h / 2))
         .on("tick", ticked);
 
 
@@ -504,6 +506,25 @@ function ajax_file_upload(file_obj) {
 		.text(function(d) { return d.name;  });
 
 		
+		
+		///DRAG FUCTION
+		function dragstarted(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+		  d.fx = d.x;
+		  d.fy = d.y;
+		}
+
+		function dragged(d) {
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		}
+
+		function dragended(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0);
+		  d.fx = null;
+		  d.fy = null;
+		}
+
 		//add nodes
 		 //svg.on("click", add, true);
 
@@ -525,7 +546,6 @@ function ajax_file_upload(file_obj) {
 			.attr("width", image_width)
 			.attr("height", image_height)
 			.merge(update_images);
-			
 			
 			
         var update_nodes = g_nodes.selectAll("circle")
@@ -579,6 +599,10 @@ function ajax_file_upload(file_obj) {
 			})
 			.attr("x", (d) => { return d.x -image_width/2; })
 			.attr("y", (d) => { return d.y -image_height/2; })
+			.call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragended)); 
 		
         nodes.attr("cx", (d) => { return d.x; })
           .attr("cy", (d) => { return d.y; })
