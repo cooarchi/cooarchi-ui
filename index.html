@@ -212,8 +212,8 @@ function file_explorer() {
     document.getElementById('selectfile').click();
     document.getElementById('selectfile').onchange = function() {
         fileobj = document.getElementById('selectfile').files[0];
-        //ajax_file_upload(fileobj);
-		upload_data(fileobj)
+        ajax_file_upload(fileobj);
+		//upload_data(fileobj)
     };
 }
   
@@ -227,7 +227,7 @@ function file_explorer() {
 			var settings = {
 		  "async": true,
 		  "crossDomain": true,
-		  "url": "https://stage.cooarchi.net/upload",
+		  "url": "ajax.php",
 		  "method": "POST",
 		  "headers": {
 			"Content-Type": "image/jpeg"
@@ -275,7 +275,7 @@ function ajax_file_upload(file_obj) {
         var form_data = new FormData();                  
         form_data.append('file', file_obj);
         var xhttp = new XMLHttpRequest();
-		xhttp.open("POST", "https://stage.cooarchi.net/upload", true);
+		xhttp.open("POST", "ajax.php", true);  //https://stage.cooarchi.net/upload
         //xhttp.open("POST", "ajax.php", true);
         xhttp.onload = function(event) {
             oOutput = document.querySelector('.img-content');
@@ -850,7 +850,7 @@ function ajax_file_upload(file_obj) {
           y: h/2 //d3.event.y
         }
 		
-		console.log(i1_exist)
+
 		var l_source = i1_exist ? nodesArray[index1] : n1;
 		var l_target = i2_exist ? nodesArray[index2] : n2;
 		
