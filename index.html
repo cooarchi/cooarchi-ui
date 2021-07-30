@@ -275,7 +275,7 @@ function ajax_file_upload(file_obj) {
         var form_data = new FormData();                  
         form_data.append('file', file_obj);
         var xhttp = new XMLHttpRequest();
-		xhttp.open("POST", "ajax.php", true);  //https://stage.cooarchi.net/upload
+		xhttp.open("POST", "https://stage.cooarchi.net/upload", true);  //https://stage.cooarchi.net/upload
         //xhttp.open("POST", "ajax.php", true);
         xhttp.onload = function(event) {
             oOutput = document.querySelector('.img-content');
