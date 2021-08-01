@@ -204,8 +204,8 @@
 function upload_file(e) {
     e.preventDefault();
     fileobj = e.dataTransfer.files[0];
-    //ajax_file_upload(fileobj);
-	upload_data(fileobj)
+    ajax_file_upload(fileobj);
+	//upload_data(fileobj)
 }
   
 function file_explorer() {
@@ -282,7 +282,7 @@ function ajax_file_upload(file_obj) {
             if (xhttp.status == 200) {
 				var response_url =  this.responseText.filename
 				console.log(response_url)
-			
+				console.log(this.responseText.filename)
                 oOutput.innerHTML = "<img src='"+ response_url +"' alt='The Image' />";
 				
 				var fileending = this.responseText.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
