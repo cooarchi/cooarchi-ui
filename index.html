@@ -280,9 +280,10 @@ function ajax_file_upload(file_obj) {
         xhttp.onload = function(event) {
             oOutput = document.querySelector('.img-content');
             if (xhttp.status == 200) {
+				var response_url =  this.responseText.filename
+				console.log(response_url)
 			
-			
-                oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
+                oOutput.innerHTML = "<img src='"+ response_url +"' alt='The Image' />";
 				
 				var fileending = this.responseText.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
 				var media_type = "none";
