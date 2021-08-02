@@ -137,13 +137,13 @@
 	ui_parameter_e1.url = ' '
 	
 	
-	ui_parameter_e1.isCoreElement = false
-	ui_parameter_e1.isFile = false
-	ui_parameter_e1.isLocation = false 
-	ui_parameter_e1.isLongText = false 
-	ui_parameter_e1.longText = null
-	ui_parameter_e1.mediaType = null 
-	ui_parameter_e1.triggerWarning = false
+	ui_parameter_e2.isCoreElement = false
+	ui_parameter_e2.isFile = false
+	ui_parameter_e2.isLocation = false 
+	ui_parameter_e2.isLongText = false 
+	ui_parameter_e2.longText = null
+	ui_parameter_e2.mediaType = null 
+	ui_parameter_e2.triggerWarning = false
 	ui_parameter_e2.url = ' '	  
 		  
 	
@@ -682,7 +682,7 @@ function ajax_file_upload(file_obj) {
 		ui_parameter_e2.isLocation = document.getElementById("location2").checked; 
 		ui_parameter_e2.triggerWarning = document.getElementById("trigger2").checked; 
 		
-		console.log(ui_parameter_e1.isFile )
+
         var n1 = {
           index: index1,
 		  label: id1,
@@ -741,7 +741,7 @@ function ajax_file_upload(file_obj) {
 		
 		
 		var sendString = JSON.stringify(sendObject)
-
+		console.log(sendString)
 		
 		var testString = JSON.stringify(test_savedata)
 
@@ -761,13 +761,13 @@ function ajax_file_upload(file_obj) {
 		ui_parameter_e1.url = ' '
 		
 		
-		ui_parameter_e1.isCoreElement = false
-		ui_parameter_e1.isFile = false
-		ui_parameter_e1.isLocation = false 
-		ui_parameter_e1.isLongText = false 
-		ui_parameter_e1.longText = null
-		ui_parameter_e1.mediaType = null 
-		ui_parameter_e1.triggerWarning = false
+		ui_parameter_e2.isCoreElement = false
+		ui_parameter_e2.isFile = false
+		ui_parameter_e2.isLocation = false 
+		ui_parameter_e2.isLongText = false 
+		ui_parameter_e2.longText = null
+		ui_parameter_e2.mediaType = null 
+		ui_parameter_e2.triggerWarning = false
 		ui_parameter_e2.url = ' '	  
 	
 	
