@@ -218,56 +218,7 @@ function file_explorer() {
 }
   
   
-  	function upload_data(file_obj){
-	
-		if(file_obj != undefined) {
-			var form_data = new FormData();                  
-			form_data.append('file', file_obj);
-			
-			var settings = {
-		  "async": true,
-		  "crossDomain": true,
-		  "url": "ajax.php",
-		  "method": "POST",
-		  "headers": {
-			"Content-Type": "image/jpeg"
-		  },
-		  "processData": false,
-		  "data": form_data
-		}
 
-			$.ajax(settings).done(function (response) {
-				console.log(response)
-			    oOutput = document.querySelector('.img-content');
-			    oOutput.innerHTML = "<img src='"+ this.responseText +"' alt='The Image' />";
-				
-				var fileending = this.response.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
-				var media_type = "none";
-				
-				if(fileending == "jpg" || fileending =="png"){
-					media_type = "image"
-				}
-				if(fileending == "mp3" || fileending =="wav"){
-					media_type = "audio"
-				}
-				if(fileending == "mp4" || fileending =="ogg"){
-					media_type = "video"
-				}
-				
-				if(upload_active1){
-					ui_parameter_e1.url =  this.responseText
-					ui_parameter_e1.mediaType = media_type
-					ui_parameter_e1.isFile = true
-					$('btn_upload1').addClass('active');
-				}
-				if(upload_active2){
-					ui_parameter_e2.url =  this.responseText
-					ui_parameter_e2.mediaType = media_type
-					ui_parameter_e2.isFile = true
-				}
-			});
-		}
-	}
 	
 	
 function ajax_file_upload(file_obj) {
@@ -280,15 +231,16 @@ function ajax_file_upload(file_obj) {
         xhttp.onload = function(event) {
             oOutput = document.querySelector('.img-content');
             if (xhttp.status == 200) {
-				var response_url =  this.responseText.filename
+				var response =  JSON.parse(this.responseText)
+				response_url = response.filename;
 				console.log(response_url)
 				console.log(this.responseText.filename)
-                oOutput.innerHTML = "<img src='"+ response_url +"' alt='The Image' />";
+                oOutput.innerHTML = "<img src='https://stage.cooarchi.net"+ response_url +"' alt='The Image' />";
 				
 				var fileending = this.responseText.substring(this.responseText.lastIndexOf('.')+1, this.responseText.length) || this.responseText;
 				var media_type = "none";
 				
-				if(fileending == "jpg" || fileending =="png"){
+				if(fileending == "jpg" || fileending =="png" ||fileending == "JPG" ||   fileending =="PNG"){
 					media_type = "image"
 				}
 				if(fileending == "mp3" || fileending =="wav"){
@@ -299,13 +251,13 @@ function ajax_file_upload(file_obj) {
 				}
 				
 				if(upload_active1){
-					ui_parameter_e1.url =  this.responseText
+					ui_parameter_e1.url =  response_url
 					ui_parameter_e1.mediaType = media_type
 					ui_parameter_e1.isFile = true
 					$('btn_upload1').addClass('active');
 				}
 				if(upload_active2){
-					ui_parameter_e2.url =  this.responseText
+					ui_parameter_e2.url =  response_url
 					ui_parameter_e2.mediaType = media_type
 					ui_parameter_e2.isFile = true
 				}
@@ -401,8 +353,8 @@ function ajax_file_upload(file_obj) {
 		.force('collision', d3.forceCollide().radius(collision_radius))
 		//.force("radial", d3.forceRadial(1000, w / 2, h / 2))
         //.force("center", d3.forceCenter(w/2, h/2))
-        //.force("x", d3.forceX(w / 2))
-        //.force("y", d3.forceY(h / 2))
+        .force("x", d3.forceX(w / 2))
+        .force("y", d3.forceY(h / 2))
         .on("tick", ticked);
 
 
@@ -540,10 +492,26 @@ function ajax_file_upload(file_obj) {
         nodeImages = update_images.enter()
 			.append("image")
 			.attr("xlink:href", function(d){
-			   if (d.isLocation == true){
-			   return "primitives/location.png"
-			   }else{return "primitives/cube_bevel_azure512.png"}
-			})
+			
+			
+			   if(d.isFile == true){
+			
+			   
+				
+				if(d.mediaType == "audio"){
+					return "icons/audiowelle-100.png"
+					
+				}
+				return "https://stage.cooarchi.net" + d.url
+				
+			   }else{
+				   if (d.isLocation == true){
+					return "primitives/location.png"
+				   }else{return "primitives/cube_bevel_azure512.png"}
+				}
+				}
+			
+			)
 			.attr("width", image_width)
 			.attr("height", image_height)
 			.merge(update_images);
@@ -593,11 +561,6 @@ function ajax_file_upload(file_obj) {
       function ticked() {
 	  
 	  	nodeImages	
-			.attr("xlink:href", function(d){
-			   if (d.isLocation == true){
-			   return "primitives/location.png"
-			   }else{return "primitives/cube_bevel_azure512.png"}
-			})
 			.attr("x", (d) => { return d.x -image_width/2; })
 			.attr("y", (d) => { return d.y -image_height/2; })
 			.call(d3.drag()
@@ -787,6 +750,28 @@ function ajax_file_upload(file_obj) {
 			save_data(sendString)
 		}
 		
+		//reset all ui parameter
+		ui_parameter_e1.isCoreElement = false
+		ui_parameter_e1.isFile = false
+		ui_parameter_e1.isLocation = false 
+		ui_parameter_e1.isLongText = false 
+		ui_parameter_e1.longText = null
+		ui_parameter_e1.mediaType = null 
+		ui_parameter_e1.triggerWarning = false
+		ui_parameter_e1.url = ' '
+		
+		
+		ui_parameter_e1.isCoreElement = false
+		ui_parameter_e1.isFile = false
+		ui_parameter_e1.isLocation = false 
+		ui_parameter_e1.isLongText = false 
+		ui_parameter_e1.longText = null
+		ui_parameter_e1.mediaType = null 
+		ui_parameter_e1.triggerWarning = false
+		ui_parameter_e2.url = ' '	  
+	
+	
+		
 
       }
 	  
@@ -831,7 +816,7 @@ function ajax_file_upload(file_obj) {
 		  longText: response.nodes[response_index1].longText, 
 		  mediaType: response.nodes[response_index1].mediaType, 
 		  triggerWarning: response.nodes[response_index1].isTrigger,
-		  url: "",
+		  url: response.nodes[response_index1].url,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
@@ -846,7 +831,7 @@ function ajax_file_upload(file_obj) {
 		  longText: response.nodes[response_index2].longText, 
 		  mediaType: response.nodes[response_index2].mediaType, 
 		  triggerWarning: response.nodes[response_index2].isTrigger,
-		  url: "",
+		  url: response.nodes[response_index2].url,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
