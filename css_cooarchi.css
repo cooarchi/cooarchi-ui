@@ -1,16 +1,26 @@
 
 @font-face{
-        font-family: "Lekton";
-	src: url(lekton/Lekton-Regular.ttf);
+        font-family: "Lexend";
+		src: url(font/LexendDeca-Regular.ttf);
         }
      
 html{
         height:100%
                 
 }
+:root {
+  --canvas-background: rgba(50,50,50,1);
+  --main-bg-color: rgba(50,50,50,1);
+  --sec-bg-color: rgba(50,50,50,1);
+  --main-fg-color: #FBE1B6 ;
+  --sec-fg-color: #FBAC91;  
+  
+}
 
 body
 {       
+		font-family: 'Lexend';
+		color: var(--sec-fg-color);
         overscroll-behavior: none;
         overscroll-behavior-y: contain;
         -webkit-box-sizing: border-box; /* Safari, other WebKit */
@@ -41,16 +51,59 @@ body
 	   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
+
+
+
+@media (orientation: landscape) {
 body svg{
+
 	width: 100%;
-	height: 100%;
+	height: auto;
+}
 }
 
-.svgdiv{
-	position: fixed;
-	width: 100%;
-		
+@media (orientation: portrait) {
+body svg{
+
+	width: auto;
+	height: 100%;
 }
+}
+
+
+
+.background-rect{
+
+	fill:  var(--canvas-background);
+}
+
+    
+	
+.nodes circle {
+	stroke: var(--main-fg-color);
+	fill: var(--sec-fg-color);
+    background-color: transparent;
+    stroke-width: 2;
+    r: 15;
+    }
+
+.links {
+    stroke: var(--main-fg-color);
+	stroke-width: 3;
+	  -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+  filter: drop-shadow( 10px 10px 10px rgba(0, 0, 0, .2));
+    }
+
+.lables{
+	fill: var(--sec-fg-color);
+	  -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+}
+
+.linknames{
+	fill: var(--sec-fg-color);
+}
+
 
 .slider_fields{
 position: absolute;
@@ -104,10 +157,10 @@ span.longtext {
 }
 .checkbox:checked::before{
   transform:translateX(18px);
-  background:#3399ff;
+  background:var(--main-fg-color);
 }
 .checkbox:checked{
-  border-color:#3399ff;
+  border-color:var(--main-fg-color);
 }
 
 .checkbox_text{
@@ -127,67 +180,140 @@ span.longtext {
 
 	  
 	}
-    
-	
-.nodes circle {
-	stroke: black;
-      background-color: transparent;
-      stroke-width: 1;
-      r: 5;
-    }
 
-    .links {
-      stroke: black;
-    }
 	
+	
+	
+/*   The main buttons in the corner */	
+	
+.main_button{
+	
+	
+}
+
+.main_button:hover{
+	
+	background-color: black;
+}
+
+
+#logo{
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	font-size: 36px;
 	
 
-.textClass {
-            stroke: #323232;
-            font-family: "Lucida Grande", "Droid Sans", Arial, Helvetica, sans-serif;
-            font-weight: normal;
-            stroke-width: .5;
-            font-size: 14px;
- }
-		
+}	
+	
+#account{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	font-size: 36px;
+	
+
+}	
+
+#help{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-size: 36px;
+	
+
+}	
+
+#add{
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	font-size: 56px;
+	
+
+}	
+
+
+
+
+
+
 .input_fields{
-			
-		display: flex;
-		flex-direction: row;
+
+		display: none;
+		flex-direction: row
 		flex-basis: 100%;
 		flex: 1;
 		position: absolute;
 		left: 50%;
 		transform: translate(-50%,0%);
-		top:20px;
-		width: 650px;
-		backdrop-filter: blur(5px);
-		 border:2px solid #ccc;
+		top: 20px;
+		
+		
+		backdrop-filter: blur(5px)  brightness(50%);;
+		 border:2px solid var( --main-fg-color);
 		 padding: 5px;
+		 border-radius: 5px;
 		
 		
+}
+
+
+@media screen and (max-width: 1400px) {
+  .input_fields {
+
+
+	top:80px;
+	transform: translate(-50%,0%);
+
+  }
+}
+
+
+@media screen and (max-width: 850px) {
+  .input_fields {
+    flex-direction: column;
+	left: 20px;
+	top:80px;
+	transform: translate(0%,0%);
+	width: 250px;
+	height: 75%;
+	overflow: scroll;
+  }
+}
+
+.input_column{
+	border:2px solid var( --main-fg-color);
+		 margin: 8px;
+		 padding: 8px;
+		border-radius: 5px;
+		border-style: dotted;
+
 }
 
 .input_text{
 	margin: 5px;
+	padding: 5px;
+	wodth: 120px;
 }
 
 
 .button_ui {
-		border-radius: 25px;
+		border-radius: 10px;
 		border:2px solid #ccc;
-		width: 60px;
+		width: 65px;
 		hegiht: 30px;
 		right: 0%;
 		transform: translate(-50%;0%;);
 		top: 50%;
-		padding: 5px 5px;
+		padding: 10px 10px;
 		text-align: center;
 		text-decoration: none;
 		display: inline-block;
 		font-size: 16px;
 		height: 20px;
 		margin: 3px;
+
 
 }
 
@@ -197,8 +323,8 @@ span.longtext {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-    background-color: #EEE;
-    border: #999 5px dashed;
+    background-color: var( --sec-bg-color);
+    border: var( --main-fg-color) 5px solid;
     width: 290px;
     height: 200px;
     padding: 2px;
@@ -267,8 +393,8 @@ span.longtext {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-    background-color: #EEE;
-    border: #999 5px solid;
+    background-color: var( --sec-bg-color);
+    border: var( --main-fg-color) 5px solid;
     width: 50%;
     height: 50%;
     padding: 8px;

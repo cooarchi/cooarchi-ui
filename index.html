@@ -28,35 +28,72 @@
   </div>
 
 
+    <div class="main_btn" id="logo">cooArchi</div>
+  
+	<div class="main_btn" id="account">Acc</div>
+	
+	<div class="main_btn" id="add">+</div>
+
+	<div class="main_btn" id="help">???</div>
+	
+	
+	
+	
+	
+  
 	<div class="input_fields">
 	
+	<h1>Add Elements and Connections</h1>
 	
 	
-		<div class="input_column">
-		
+	  <div class="input_column">
+	  <h3>Element 1</h3>
+	
+	  
+	  <label for="rel">Description</label><br>
+	  <input class="input_text" type="text" id="e1" name="fname">
+	  <br>
+	  
+	  <label for="rel">Add Attachments</label><br>
 	  <button><span class="upload" id="btn_upload1"></span></button>
 	  <button><span class="longtext" id="btn_text1"></span></button>
+	  <br>
 	  
-	  <input class="input_text" type="text" id="e1" name="fname"><br>
-	  
+	  <label for="rel">Settings</label><br>
 	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Is a Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
 	  
 	  </div>
 	  
+	  
+	  
+	  
+	  
+	  
 	  <div class="input_column">
-	  <br>
-	  <label for="rel"></label><br>
+	  <h3>Connection</h3>
+
+	  <label for="rel">Name of Connection</label><br>
 	  <input class="input_text" type="text" id="rel" name="lname">
 	  </div>
 	  
-	  <div class="input_column">
 	  
-	  <button><span class="upload" id="btn_upload2" ></span></button>
-	  <button><span class="longtext" id="btn_text2"></span></button>
 	  
-	  <input class="input_text" type="text" id="e2" name="lname">
+	  
+	 <div class="input_column">
+	  <h3>Element 2</h3>
+	
+	  
+	  <label for="rel">Description</label><br>
+	  <input class="input_text" type="text" id="e2" name="fname">
 	  <br>
+	  
+	  <label for="rel">Add Attachments</label><br>
+	  <button><span class="upload" id="btn_upload2"></span></button>
+	  <button><span class="longtext" id="btn_text2"></span></button>
+	  <br>
+	  
+	  <label for="rel">Settings</label><br>
 	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Is a Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger2"/> <span class="checkbox_text">Triggerwarning</span>
 	  
@@ -65,10 +102,13 @@
 	  
 	  <div class="input_column">
 	  <a class="button_ui" id="button_cooarch">cooArch!</a><br>
-	  <a class="button_ui" id="bold">reset</a><br>
-	  <a class="button_ui" id="bold">hide</a><br>
+	  <a class="button_ui" id="reset_add">reset</a><br>
+	  <a class="button_ui" id="close_add">close</a><br>
 	  </div>
     </div>
+	
+	
+	
 	
 	
 <div class="file_and_blur">
@@ -119,6 +159,9 @@
   
   
    //initialize menu states
+   
+    var add_active = false;
+	
 	var upload_active1 = false
 	var upload_active2 = false
 	
@@ -150,7 +193,16 @@
 	/////UI////////
 	
 	
+	$('#add').click(function() {
+		$(".input_fields").css("display", "flex");
+		add_active = true
+	});
 	
+
+		$('#close_add').click(function() {
+			$(".input_fields").css("display", "none");
+			add_active = false
+		});
 
 	
 	//FILE UPLOAD UI
@@ -310,6 +362,12 @@ function ajax_file_upload(file_obj) {
 		svg.attr('width', w)
         .attr('height', h);
 		
+		
+		svg.append("rect")
+		.attr("class", "background-rect")
+		.attr("width", "100%")
+		.attr("height", "100%");
+		
 		nodesArray = []
 		linksArray = []
 		
@@ -368,6 +426,7 @@ function ajax_file_upload(file_obj) {
 		svg.call(d3.zoom().on("zoom", function () {
 			g_pan.attr("transform", d3.event.transform)
 		}))
+
 		
       var g_links = g_pan.append("g")
         .attr("class", "links");
@@ -507,7 +566,7 @@ function ajax_file_upload(file_obj) {
 			   }else{
 				   if (d.isLocation == true){
 					return "primitives/location.png"
-				   }else{return "primitives/cube_bevel_azure512.png"}
+				   }else{} //return "primitives/cube_bevel_azure512.png"
 				}
 				}
 			
@@ -626,34 +685,7 @@ function ajax_file_upload(file_obj) {
 	  
 	  
 	  
-	  
-	  
-      function add(label) {
-        var n = {
-          index: nodesArray.length,
-		  label: label,
-		  triggerWarning: false,
-		  isLocation: false,
-		  mediaType: "none",
-		  isLongText: "false",
-          x: w/2, //d3.event.x
-          y: h/2 //d3.event.y
-        }
-        var l = {
-          index: linksArray.length,
-          source: n,
-          target: nodesArray[Math.floor(nodesArray.length * Math.random())]
-        }
-        linksArray.push(l);
-        nodesArray.push(n);
-        simulation.force("link", d3.forceLink(linksArray).distance(40).strength(1))
-        simulation.nodes(nodesArray);
-        simulation.alpha(1);
-        simulation.restart();
-        reDraw();
-      }
-	  
-
+	//ADD ELEMENTS FROM UI
       function add_elements(id1,id2, linkname, save) {
 		var index1
 		var index2
@@ -776,7 +808,7 @@ function ajax_file_upload(file_obj) {
       }
 	  
 	 
-////LOAD ELEMENTS ONE BY ONE
+////LOAD ELEMENTS FROM DATABASE
       function load_elements(id1,id2, linkname, save, response) {
 		var index1
 		var index2
