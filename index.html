@@ -451,20 +451,7 @@ function ajax_file_upload(file_obj) {
         .attr("x1", (d) => { return d.target.y; })
 		
 		
-		  var defs = svg.append("svg:defs");
-  
-		   defs.append("svg:pattern")
-				  .attr("width", 1)
-				  .attr("height", 1)
-				  //.attr("patternUnits", "userSpaceOnUse")
-				  .attr("id", "myImage")
-				  .append("svg:image")
-				  .attr("xlink:href", "https://placekitten.com/g/48/48")
-				  .attr("width", 48)
-				  .attr("height", 48)
-				  .attr("x", 0)
-				  .attr("y", 0);
-			
+	
 	 var nodeImages = g_images.selectAll("image")
         .data(nodesArray)
         .enter().append("image")
