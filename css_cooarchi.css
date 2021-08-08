@@ -188,13 +188,27 @@ span.longtext {
 /*   The main buttons in the corner */	
 	
 .main_button{
+	text-align: center;
+	padding: 10px;
+}
+
+.img_logo{
+
+	position: absolute;
+    fill: var(--sec-bg-color);
+
 	
-	
+}
+
+.logo_text{
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 .main_button:hover{
 	
-	background-color: black;
+	
 }
 
 
@@ -203,6 +217,8 @@ span.longtext {
 	left: 20px;
 	top: 20px;
 	font-size: 36px;
+	width: 150px;
+	height: 45px;
 	
 
 }	
@@ -212,6 +228,8 @@ span.longtext {
 	right: 20px;
 	top: 20px;
 	font-size: 36px;
+		width: 65px;
+	height: 65px;
 	
 
 }	
@@ -221,6 +239,8 @@ span.longtext {
 	right: 20px;
 	bottom: 20px;
 	font-size: 36px;
+		width: 65px;
+	height: 65px;
 	
 
 }	
@@ -230,6 +250,8 @@ span.longtext {
 	left: 20px;
 	bottom: 20px;
 	font-size: 56px;
+		width: 65px;
+	height: 65px;
 	
 
 }	
