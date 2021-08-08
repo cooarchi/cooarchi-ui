@@ -9,11 +9,11 @@ html{
                 
 }
 :root {
-  --canvas-background: rgba(50,50,50,1);
-  --main-bg-color: rgba(50,50,50,1);
-  --sec-bg-color: rgba(50,50,50,1);
-  --main-fg-color: #FBE1B6 ;
-  --sec-fg-color: #FBAC91;  
+  --canvas-background: #FFF6DA;
+  --main-bg-color: #FFF6DA;
+  --sec-bg-color: #84F2D6;
+  --main-fg-color: #FC6B3F ;
+  --sec-fg-color: #262525;  
   
 }
 
@@ -81,24 +81,24 @@ body svg{
 	
 .nodes circle {
 	stroke: var(--main-fg-color);
-	fill: var(--sec-fg-color);
+	fill: var(--main-fg-color);
     background-color: transparent;
     stroke-width: 2;
     r: 15;
-	filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));
+	/* filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));*/
     }
 
 .links {
     stroke: var(--main-fg-color);
 	stroke-width: 3;
-	  -webkit-filter: drop-shadow( 0px 0px 20px rgba(255, 255, 255, .6));
-  filter: drop-shadow( 0px 0px 5px rgba(255, 255, 255, .3));
+	 /*  -webkit-filter: drop-shadow( 0px 0px 20px rgba(255, 255, 255, .6));
+  filter: drop-shadow( 0px 0px 5px rgba(255, 255, 255, .3));*/
     }
 
 .lables{
 	fill: var(--sec-fg-color);
-	  -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
-  filter: drop-shadow( 0px 0px 3px rgba(0, 0, 0, 255));
+	/*  -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
+  filter: drop-shadow( 0px 0px 3px rgba(0, 0, 0, 255));*/
 }
 
 .linknames{
@@ -250,7 +250,7 @@ span.longtext {
 		transform: translate(-50%,0%);
 		top: 20px;
 		
-		
+		background-color: var(--main-bg-color);
 		backdrop-filter: blur(5px)  brightness(50%);;
 		 border:2px solid var( --main-fg-color);
 		 padding: 5px;
@@ -414,7 +414,27 @@ span.longtext {
 }
   
   
-  
+ /*scrollbar*/
+ 
+ /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
   
   
 
