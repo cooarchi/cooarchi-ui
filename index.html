@@ -161,8 +161,7 @@
 	<div class="logo_text">+</div>
 	</div>
 	
-	
-	
+
 	
 	    <div class="main_btn" id="help">
 	<svg class="img_logo"
@@ -242,15 +241,45 @@
 	  <div class="input_column">
 	  <h3>Element 1</h3>
 	
-	  
-	  <label for="rel">Description</label><br>
-	  <input class="input_text" type="text" id="e1" name="fname">
-	  <br>
-	  
-	  <label for="rel">Add Attachments</label><br>
-	  <button><span class="upload" id="btn_upload1"></span></button>
-	  <button><span class="longtext" id="btn_text1"></span></button>
-	  <br>
+
+	
+	<div class="tab">
+  <button class="tablinks1" onclick="tab1(event, 'Edit1')"><img style="width:30px;height:30px" src="icons/edit.png"></img></button>
+  <button class="tablinks1" onclick="tab1(event, 'Upload1')"><img style="width:30px;height:30px" src="icons/folder.png"></img></button>
+  <button class="tablinks1" onclick="tab1(event, 'Text1')"><img style="width:30px;height:30px" src="icons/file.png"></img></button>
+</div>
+
+
+<!-- Tab content -->
+<div id="Edit1" class="tabcontent1">
+  <h3>Edit</h3>
+  <input class="input_text" type="text" id="e1" name="fname">
+</div>
+
+
+<div id="Upload1" class="tabcontent1">
+  <h3>Upload</h3>   
+  <div id="drop_file_zone_tab" ondrop="upload_file(event)" ondragover="return false">
+    <div id="drag_upload_file">
+        <div>Drop file here or</div>
+
+        <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
+        <input type="file" id="selectfile" />
+		
+		<div class="img-content"></div>
+    </div>
+</div>
+</div>
+
+
+
+<div id="Text1" class="tabcontent1">
+  <h3>Text</h3>
+  <button>Open Editor</button>
+</div>
+	
+	
+
 	  
 	  <label for="rel">Settings</label><br>
 	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Is a Place</span><br>
@@ -275,8 +304,45 @@
 	  
 	 <div class="input_column">
 	  <h3>Element 2</h3>
-	
 	  
+	  
+	  	<div class="tab">
+  <button class="tablinks2" onclick="tab2(event, 'Edit2')"><img style="width:30px;height:30px" src="icons/edit.png"></img></button>
+  <button class="tablinks2" onclick="tab2(event, 'Upload2')"><img style="width:30px;height:30px" src="icons/folder.png"></img></button>
+  <button class="tablinks2" onclick="tab2(event, 'Text2')"><img style="width:30px;height:30px" src="icons/file.png"></img></button>
+</div>
+
+
+<!-- Tab content -->
+<div id="Edit2" class="tabcontent2">
+  <h3>Edit</h3>
+  <input class="input_text" type="text" id="e1" name="fname">
+</div>
+
+
+<div id="Upload2" class="tabcontent2">
+  <h3>Upload</h3>   
+  <div id="drop_file_zone_tab" ondrop="upload_file(event)" ondragover="return false">
+    <div id="drag_upload_file">
+        <div>Drop file here or</div>
+
+        <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
+        <input type="file" id="selectfile" />
+		
+		<div class="img-content"></div>
+    </div>
+</div>
+</div>
+
+
+
+<div id="Text2" class="tabcontent2">
+  <h3>Text</h3>
+  <button>Open Editor</button>
+</div>
+	  
+	
+	  <!--
 	  <label for="rel">Description</label><br>
 	  <input class="input_text" type="text" id="e2" name="fname">
 	  <br>
@@ -284,7 +350,7 @@
 	  <label for="rel">Add Attachments</label><br>
 	  <button><span class="upload" id="btn_upload2"></span></button>
 	  <button><span class="longtext" id="btn_text2"></span></button>
-	  <br>
+	  <br>-->
 	  
 	  <label for="rel">Settings</label><br>
 	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Is a Place</span><br>
@@ -339,7 +405,7 @@
 <script src="js/upload.js"></script>
 
 
-	
+<script src="js/tabs.js"></script>	
 	
 	
 
@@ -443,6 +509,16 @@
 	var init = false;
   
   
+  
+ 
+
+
+
+
+
+
+
+
 ///////	FILE UPLOAD
 	
 	var fileobj;
@@ -530,6 +606,9 @@ function ajax_file_upload(file_obj) {
     window.onload = () => {
 	
 	
+   init_tabs1()
+  init_tabs2()
+  
 
       Array.prototype.delete = function (arr) {
         var t = [];

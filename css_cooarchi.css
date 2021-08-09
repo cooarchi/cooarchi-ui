@@ -311,13 +311,14 @@ span.longtext {
 		 padding: 8px;
 		border-radius: 5px;
 		border-style: dotted;
+		width: 200px;
 
 }
 
 .input_text{
 	margin: 5px;
 	padding: 5px;
-	wodth: 120px;
+	width: 120px;
 }
 
 
@@ -354,6 +355,22 @@ span.longtext {
     font-size: 18px;
 	z-index: 10;
 }
+
+#drop_file_tab {
+
+	position: relative;
+
+
+    background-color: var( --sec-bg-color);
+    border: var( --main-fg-color) 5px solid;
+    width: 290px;
+    height: 200px;
+    padding: 2px;
+    font-size: 18px;
+	z-index: 10;
+}
+
+
 #drag_upload_file {
   width:50%;
   margin:0 auto;
@@ -459,4 +476,42 @@ span.longtext {
 }
   
   
+  
+  /*tabs*/
+  
+  .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width:160px;
+}
 
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 5px 11px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+  
