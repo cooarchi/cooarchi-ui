@@ -502,12 +502,13 @@ function ajax_file_upload(file_obj) {
 					ui_parameter_e1.url =  response_url
 					ui_parameter_e1.mediaType = media_type
 					ui_parameter_e1.isFile = true
-					$('btn_upload1').addClass('active');
+					console.log("upload1 active")
 				}
 				if(upload_active2){
 					ui_parameter_e2.url =  response_url
 					ui_parameter_e2.mediaType = media_type
 					ui_parameter_e2.isFile = true
+					console.log("upload2 active")
 				}
 				
 				
@@ -671,7 +672,7 @@ function ajax_file_upload(file_obj) {
         .attr("cy", (d) => { return d.y; })
 		.attr('fill', "url(#myImage)")
 
-				var hitboxes = g_hitboxes.selectAll("circle")
+		var hitboxes = g_hitboxes.selectAll("circle")
         .data(nodesArray)
         .enter().append("circle")
         .attr("cx", (d) => { return d.x; })
@@ -692,7 +693,7 @@ function ajax_file_upload(file_obj) {
         .data(nodesArray)
         .enter().append("text")
 		.text((d) => { return d.label; })
-        .on("click", remove)
+
 		
 		
 		//labels on text
@@ -852,8 +853,10 @@ function ajax_file_upload(file_obj) {
 			d3.select(this).append("image")
 			.attr("class", "node_add")
 			.attr("xlink:href", "icons/plus-circular-button.png")
-			selected_node = d.id;
+			selected_node = d.label;
 			console.log(selected_node)
+			
+			
         })
         .on("mouseup", function(d) {
             //if (d.selected && shiftKey) d3.select(this).classed("selected", d.selected = false);
@@ -944,7 +947,6 @@ function ajax_file_upload(file_obj) {
 		index2 = nodesArray.length
 		}
 		
-		console.log(i1_exist, i2_exist);
 		
 		ui_parameter_e1.isLocation = document.getElementById("location1").checked; 
 		ui_parameter_e1.triggerWarning = document.getElementById("trigger1").checked; 
