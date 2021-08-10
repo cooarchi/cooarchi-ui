@@ -61,7 +61,7 @@ body svg{
 	height: auto;
 }
 }
-
+/*  SVG STYLES */
 @media (orientation: portrait) {
 body svg{
 
@@ -104,6 +104,32 @@ body svg{
 .linknames{
 	fill: var(--sec-fg-color);
 }
+
+.node_images image{
+	z-index:10;
+}	
+
+
+
+.hitboxes circle{
+	stroke: transparent;
+	fill: transparent;
+    background-color: transparent;
+    stroke-width: 2;
+    r: 30;
+	/* filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));*/
+    }
+	
+
+.hitboxes circle.selected {
+	stroke: var(--sec-fg-color);
+	fill: transparent;
+    background-color: transparent;
+    stroke-width: 2;
+    r: 30;
+	/* filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));*/
+    }
+
 
 
 .slider_fields{
@@ -172,9 +198,7 @@ span.longtext {
   /* background: url('https://media1.thehungryjpeg.com/thumbs2/ori_3608712_ntnvjj4vycg35o1jmvgjl2r834q4kfey5edfgd0p_grid-with-dots-paper-seamless-pattern-isometric-floor-plan-for-basic.jpg') repeat; */
 /* } */
 
-.node_images image{
-	z-index:10;
-}	
+
 #main {
       overflow: hidden;
       position: relative;

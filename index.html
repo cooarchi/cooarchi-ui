@@ -709,6 +709,8 @@ function ajax_file_upload(file_obj) {
         .attr("class", "nodes");
 	var g_images = g_pan.append("g")
         .attr("class", "node_images");	
+	var g_hitboxes = g_pan.append("g")
+        .attr("class", "hitboxes");
 	  var g_lables = g_pan.append("g")
         .attr("class", "lables");
 	  var g_linknames = g_pan.append("g")
@@ -746,8 +748,15 @@ function ajax_file_upload(file_obj) {
         .enter().append("circle")
         .attr("cx", (d) => { return d.x; })
         .attr("cy", (d) => { return d.y; })
-		.attr('fill', "url(#myImage)")
+		.attr('fill', "url(#myImage)")		
 
+		var hitboxes = g_hitboxes.selectAll("circle")
+        .data(nodesArray)
+        .enter().append("circle")
+        .attr("cx", (d) => { return d.x; })
+        .attr("cy", (d) => { return d.y; })
+
+		
 		
 		//labels on nodes
 		var lables = g_lables.selectAll("text")
@@ -843,7 +852,17 @@ function ajax_file_upload(file_obj) {
         update_nodes.exit().remove();
         nodes = update_nodes.enter()
           .append("circle")
-          .merge(update_nodes);
+          .merge(update_nodes)
+		  
+		 
+			
+        var update_hitboxes = g_hitboxes.selectAll("circle")
+          .data(nodesArray);
+        update_hitboxes.exit().remove();
+        hitboxes = update_hitboxes.enter()
+          .append("circle")
+          .merge(update_hitboxes)
+		  
 		  
         var update_links = g_links.selectAll(".glink")
           .data(linksArray);
@@ -878,19 +897,43 @@ function ajax_file_upload(file_obj) {
 		
       }
 	  
+	  var selected_node
 	  
       function ticked() {
 	  
 	  	nodeImages	
 			.attr("x", (d) => { return d.x -image_width/2; })
 			.attr("y", (d) => { return d.y -image_height/2; })
+
+		
+        nodes.attr("cx", (d) => { return d.x; })
+          .attr("cy", (d) => { return d.y; })
+		  
+		  
+		  
+		  
+		  
+		hitboxes.attr("cx", (d) => { return d.x; })
+			.attr("cy", (d) => { return d.y; })
+		  	.on("click", function(d) {
+            if (d3.event.defaultPrevented) return;
+
+                hitboxes.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; })
+            
+
+            // always select this node
+            d3.select(this).classed("selected", d.selected = !d.previouslySelected);
+			selected_node = d.id;
+			console.log(selected_node)
+        })
+
+        .on("mouseup", function(d) {
+            //if (d.selected && shiftKey) d3.select(this).classed("selected", d.selected = false);
+        })
 			.call(d3.drag()
 				.on("start", dragstarted)
 				.on("drag", dragged)
 				.on("end", dragended)); 
-		
-        nodes.attr("cx", (d) => { return d.x; })
-          .attr("cy", (d) => { return d.y; })
 		  
         links = g_links.selectAll("line")
           .attr("x2", (d) => { return d.source.x; })
