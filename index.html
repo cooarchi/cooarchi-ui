@@ -389,7 +389,7 @@
 	ui_parameter_e2.triggerWarning = false
 	ui_parameter_e2.url = ' '	  
 		  
-	
+	var response_url;
 
 
 	
@@ -811,6 +811,7 @@ function ajax_file_upload(file_obj) {
       }
 	  
 	  var selected_node
+	  var playback
       function ticked() {
 	  
 	  	nodeImages	
@@ -837,7 +838,16 @@ function ajax_file_upload(file_obj) {
 			if(d.mediaType=="audio"){
 				console.log("audio selected")
 				
-			var playback = new Audio("https://stage.cooarchi.net" +d.url);
+				
+				if(playback!== undefined){
+					playback.pause();
+					playback.currentTime = 0;
+				}
+					
+					
+					
+			playback = new Audio("https://stage.cooarchi.net" +d.url);
+		
 				playback.play();
 				
 				
@@ -886,8 +896,10 @@ function ajax_file_upload(file_obj) {
 				$("#first_input_column_add").css("display", "none");
 				$("#first_input_column").css("display", "block");
 				if(playback!== undefined){
-					playback.stop();
+					
 				}
+					playback.pause();
+					playback.currentTime = 0;
               console.log("click on background")
 			})
 			
@@ -1370,6 +1382,56 @@ function ajax_file_upload(file_obj) {
 		  
 		  
 		  add_elements(e1,e2,rel, true);
+  
+  
+		});
+		
+		$( "#reset_add" ).click(function() {
+		
+						var ui_parameter_e1 = {}
+				var ui_parameter_e2 = {}
+			  
+			  
+			   //initialize menu states
+			   
+				var add_active = false;
+				
+				var upload_active1 = false
+				var upload_active2 = false
+				
+				var text_active1 = false
+				var text_active2 = false
+				
+				var ui_add_node = false;
+	
+	
+		  		ui_parameter_e1.isCoreElement = false
+				ui_parameter_e1.isFile = false
+				ui_parameter_e1.isLocation = false 
+				ui_parameter_e1.isLongText = false 
+				ui_parameter_e1.longText = null
+				ui_parameter_e1.mediaType = null 
+				ui_parameter_e1.triggerWarning = false
+				ui_parameter_e1.url = ' '
+				
+				
+				ui_parameter_e2.isCoreElement = false
+				ui_parameter_e2.isFile = false
+				ui_parameter_e2.isLocation = false 
+				ui_parameter_e2.isLongText = false 
+				ui_parameter_e2.longText = null
+				ui_parameter_e2.mediaType = null 
+				ui_parameter_e2.triggerWarning = false
+				ui_parameter_e2.url = ' '	
+
+				response_url = "";
+				
+				
+				$("#e1").val("")	
+				$("#rel").val("")					
+				$("#e2").val("")	
+				console.log("reset")
+	
   
   
 		});
