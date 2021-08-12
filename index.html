@@ -782,6 +782,13 @@ function ajax_file_upload(file_obj) {
         update_nodes.exit().remove();
         nodes = update_nodes.enter()
           .append("circle")
+		  .attr("r", function(d){
+			  if(d.isCoreElement==true){
+			  return 50;
+			  }else{
+				return 15;
+			  }
+			})
           .merge(update_nodes);
 		  
 		         var update_hitboxes = g_hitboxes.selectAll("circle")
@@ -808,6 +815,13 @@ function ajax_file_upload(file_obj) {
         lables = update_lables.enter()
           .append("text")
 		  .text((d) => { return d.label; })
+		  .attr("font-size", function(d){
+			  if(d.isCoreElement==true){
+			  return 30;
+			  }else{
+				return 15;
+			  }
+			})
           .merge(update_lables)
 		  
 		  
@@ -952,10 +966,21 @@ function ajax_file_upload(file_obj) {
 		ui_parameter_e1.triggerWarning = document.getElementById("trigger1").checked; 
 		ui_parameter_e2.isLocation = document.getElementById("location2").checked; 
 		ui_parameter_e2.triggerWarning = document.getElementById("trigger2").checked; 
+			
+		var node_id1 = null
+		var node_id2 = null
+
+		if(i1_exist){
+		node_id1 = nodesArray[existing_index1].id;
+		}
+		if(i2_exist){
+		node_id2 = nodesArray[existing_index2].id;
+		}
 		
 
         var n1 = {
           index: index1,
+		  id: node_id1,
 		  label: id1,
 		  isCoreElement: ui_parameter_e1.isCoreElement, 
 		  isFile: ui_parameter_e1.isFile, 
@@ -970,6 +995,7 @@ function ajax_file_upload(file_obj) {
         }
 		var n2 = {
           index: index2,
+		  id: node_id2,
 		  label: id2,
 		  isCoreElement: ui_parameter_e2.isCoreElement, 
 		  isFile: ui_parameter_e2.isFile, 
@@ -1153,6 +1179,92 @@ function ajax_file_upload(file_obj) {
       }
 
 
+
+
+
+
+////LOAD ELEMENTS FROM DATABASE
+      function load_nodes(id1, response) {
+	  
+	  
+	
+		
+		
+		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
+
+
+		
+		
+        var n1 = {
+          index: nodesArray.length,
+		  id: response.nodes[response_index1].id,
+		  label: response.nodes[response_index1].label,
+		  isCoreElement: response.nodes[response_index1].isCoreElement, 
+		  isFile: response.nodes[response_index1].isFile, 
+		  isLocation: response.nodes[response_index1].isLocation , 
+		  isLongText: response.nodes[response_index1].isLongText, 
+		  longText: response.nodes[response_index1].longText, 
+		  mediaType: response.nodes[response_index1].mediaType, 
+		  triggerWarning: response.nodes[response_index1].isTrigger,
+		  url: response.nodes[response_index1].url,
+          x: w/2, //d3.event.x
+          y: h/2 //d3.event.y
+        }
+
+		nodesArray.push(n1) 
+
+        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+		
+		
+      }
+
+
+
+
+////LOAD ELEMENTS FROM DATABASE
+      function load_links(link, response) {
+		
+		
+		id1=link.source.id;
+		id2=link.target.id;
+		
+		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
+		var response_index2 = response.nodes.map(function(x) {return x.id; }).indexOf(id2);
+
+		var l_source = nodesArray[response_index1] 
+		var l_target = nodesArray[response_index2] 
+		
+        var l = {
+          index: linksArray.length,
+		  label: link.label,
+          source: l_source,
+          target: l_target
+        }
+		
+        linksArray.push(l) 
+
+      
+
+        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+		
+		
+      }
+
+
+
+
+
+
+
+
   
 	  //LOAD
 	//https://stage.cooarchi.net/data?delta=1
@@ -1174,13 +1286,22 @@ function ajax_file_upload(file_obj) {
 	$.ajax(settings).done(function (response) {	
 	
 	
-		for(var i=0; i < response.links.length; i++){
+	
+	
+	
+	
+		for(var i=0; i < response.nodes.length; i++){
+
+				load_nodes(response.nodes[i].id, response)
 		
-				
 		
-		
-				load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, response)
+				//load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, response)
 			}
+			
+		for(var i=0; i < response.links.length; i++){	
+		load_links(response.links[i], response) 	
+			
+		}	
 			
 			
 			
