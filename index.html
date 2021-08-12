@@ -236,10 +236,10 @@
   
 	<div class="input_fields">
 	
-	<h1>Add Elements and Connections</h1>
+	<!--<h1>Add Elements and Connections</h1>-->
 	
 	
-	  <div class="input_column">
+	  <div class="input_column" id="first_input_column">
 	  <h3>Element 1</h3>
 	
 	  
@@ -257,8 +257,11 @@
 	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
 	  
 	  </div>
-	  
-	  
+	   <div class="input_column" id="first_input_column_add">
+	   <h3>Element 1</h3>
+	   <br>
+	   Node selected
+	  </div>
 	  
 	  
 	  
@@ -347,6 +350,8 @@
 
   <script>
   
+  
+   //UI STATES
 	var ui_parameter_e1 = {}
 	var ui_parameter_e2 = {}
   
@@ -360,6 +365,8 @@
 	
 	var text_active1 = false
 	var text_active2 = false
+	
+	var ui_add_node = false;
 
 	
 	//initialize ui parameters for each elements
@@ -383,56 +390,7 @@
 	ui_parameter_e2.url = ' '	  
 		  
 	
-	/////UI////////
-	
-	
-	$('#add').click(function() {
-		$(".input_fields").css("display", "flex");
-		add_active = true
-	});
-	
 
-		$('#close_add').click(function() {
-			$(".input_fields").css("display", "none");
-			add_active = false
-		});
-
-	
-	//FILE UPLOAD UI
-	$('#btn_upload1').click(function() {
-		$(".file_and_blur").css("display", "block");
-		upload_active1 = true
-	  });
-	  
-	$('#btn_upload2').click(function() {
-		$(".file_and_blur").css("display", "block");
-		upload_active2 = true
-	});
-	
-
-		$('.close_symbol').click(function() {
-			$(".file_and_blur").css("display", "none");
-			upload_active1 = false
-			upload_active2 = false
-		});
-		
-		
-	//TEXT INPUT UI
-	var text_active = false
-	$('#btn_text1').click(function() {
-		$(".text_and_blur").css("display", "block");
-		text_active = true
-	  });
-	  
-	$('#btn_text2').click(function() {
-		$(".text_and_blur").css("display", "block");
-		text_active = true
-	});
-	
-
-		$('.close_symbol').click(function() {
-			$(".text_and_blur").css("display", "none");
-		});
 
 	
   
@@ -491,10 +449,10 @@ function ajax_file_upload(file_obj) {
 				if(fileending == "jpg" || fileending =="png" ||fileending == "JPG" ||   fileending =="PNG"){
 					media_type = "image"
 				}
-				if(fileending == "mp3" || fileending =="wav"){
+				if(fileending == "mp3" || fileending =="wav" || fileending =="ogg"){
 					media_type = "audio"
 				}
-				if(fileending == "mp4" || fileending =="ogg"){
+				if(fileending == "mp4"){
 					media_type = "video"
 				}
 				
@@ -560,7 +518,7 @@ function ajax_file_upload(file_obj) {
         .attr('height', h);
 		
 		
-		svg.append("rect")
+		var background_rect = svg.append("rect")
 		.attr("class", "background-rect")
 		.attr("width", "100%")
 		.attr("height", "100%");
@@ -599,8 +557,8 @@ function ajax_file_upload(file_obj) {
 		var collision_radius = 100;
 		
 		//image SETTINGS
-		image_height = 50;
-		image_width = 50;
+		image_height = 75;
+		image_width = 75;
 		
       var simulation = d3.forceSimulation(nodesArray)
         .force("charge", d3.forceManyBody().strength(charge_strength))
@@ -631,13 +589,14 @@ function ajax_file_upload(file_obj) {
         .attr("class", "nodes");
 	var g_images = g_pan.append("g")
         .attr("class", "node_images");	
-			var g_hitboxes = g_pan.append("g")
+	var g_hitboxes = g_pan.append("g")
         .attr("class", "hitboxes");
 	  var g_lables = g_pan.append("g")
         .attr("class", "lables");
 	  var g_linknames = g_pan.append("g")
         .attr("class", "linknames");
-
+	var g_buttons = g_pan.append("g")
+        .attr("class", "buttons");
 
 	//THIS PART IS ONLY FOR TESTDATA
 
@@ -680,12 +639,11 @@ function ajax_file_upload(file_obj) {
 
 		
 		
-		var update_hitboxes = g_hitboxes.selectAll("circle")
-          .data(nodesArray);
-        update_hitboxes.exit().remove();
-        hitboxes = update_hitboxes.enter()
-          .append("circle")
-          .merge(update_hitboxes)
+		var buttons = g_buttons.selectAll("image")
+        .data(nodesArray)
+        .enter().append("image")
+        .attr("x", (d) => { return d.x; })
+        .attr("y", (d) => { return d.y; })
 		  
 		
 		//labels on nodes
@@ -791,38 +749,50 @@ function ajax_file_upload(file_obj) {
 			})
           .merge(update_nodes);
 		  
-		         var update_hitboxes = g_hitboxes.selectAll("circle")
-          .data(nodesArray);
-        update_hitboxes.exit().remove();
-        hitboxes = update_hitboxes.enter()
-          .append("circle")
-          .merge(update_hitboxes)
+		var update_hitboxes = g_hitboxes.selectAll("circle")
+            .data(nodesArray);
+		update_hitboxes.exit().remove();
+		hitboxes = update_hitboxes.enter()
+			.append("g")
+            .append("circle")
+            .merge(update_hitboxes)
+			
+		var update_buttons = g_buttons.selectAll("image")
+			.data(nodesArray);
+			update_buttons.exit().remove();
+			buttons = update_buttons.enter()
+				.append("image")
+				.attr("class", "node_btn_add")
+				.attr("xlink:href", "icons/round-add-button.png")
+				.attr("width", 20)
+				.attr("height", 20)
+				.merge(update_buttons);
 		  
 		   
 		  
         var update_links = g_links.selectAll(".glink")
-          .data(linksArray);
+			.data(linksArray);
         update_links.exit().remove()
         links = update_links.enter()
-          .append("g").attr("class", "glink").append("line")
-          .merge(update_links)
+			.append("g").attr("class", "glink").append("line")
+			.merge(update_links)
 		  
 
 		  
 		var update_lables = g_lables.selectAll("text")
-          .data(nodesArray);
+			.data(nodesArray);
         update_lables.exit().remove()
         lables = update_lables.enter()
-          .append("text")
-		  .text((d) => { return d.label; })
-		  .attr("font-size", function(d){
+			.append("text")
+			.text((d) => { return d.label; })
+			.attr("font-size", function(d){
 			  if(d.isCoreElement==true){
 			  return 30;
 			  }else{
 				return 15;
 			  }
 			})
-          .merge(update_lables)
+			.merge(update_lables)
 		  
 		  
 		  
@@ -840,7 +810,7 @@ function ajax_file_upload(file_obj) {
 		
       }
 	  
-	  
+	  var selected_node
       function ticked() {
 	  
 	  	nodeImages	
@@ -852,7 +822,7 @@ function ajax_file_upload(file_obj) {
           .attr("cy", (d) => { return d.y; })
 		  
 		  
-		  
+		  //hitboxes for the selection
 		 hitboxes.attr("cx", (d) => { return d.x; })
 			.attr("cy", (d) => { return d.y; })
 		  	.on("click", function(d) {
@@ -864,10 +834,16 @@ function ajax_file_upload(file_obj) {
             // always select this node
             d3.select(this).classed("selected", d.selected = !d.previouslySelected);
 			
-			d3.select(this).append("image")
-			.attr("class", "node_add")
-			.attr("xlink:href", "icons/plus-circular-button.png")
-			selected_node = d.label;
+			if(d.mediaType=="audio"){
+				console.log("audio selected")
+				
+			var playback = new Audio("https://stage.cooarchi.net" +d.url);
+				playback.play();
+				
+				
+				
+			}
+			selected_node = d.index;
 			console.log(selected_node)
 			
 			
@@ -881,7 +857,40 @@ function ajax_file_upload(file_obj) {
 				.on("end", dragended)); 
 		  
 		 
-		  
+		 	buttons
+			.attr("x", (d) => { return d.x -image_width/2+50; })
+			.attr("y", (d) => { return d.y -image_height/2; })
+			.attr("visibility", (d) => {
+				if(d.index == selected_node){
+					return "visible"}
+				else{return "hidden" }
+			})
+			.on("click", function(d) {
+            if (d3.event.defaultPrevented) return;
+				$(".input_fields").css("display", "flex");
+				add_active = true
+				ui_add_node = true;
+				$("#first_input_column_add").css("display", "block");
+				$("#first_input_column").css("display", "none");
+			
+              console.log("add node")
+			})
+			
+		//reset selection on click on background	
+		background_rect
+		.on("click", function(d) {
+            if (d3.event.defaultPrevented) return;
+				hitboxes.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; })
+				selected_node = -1;
+				ui_add_node = false;
+				$("#first_input_column_add").css("display", "none");
+				$("#first_input_column").css("display", "block");
+				if(playback!== undefined){
+					playback.stop();
+				}
+              console.log("click on background")
+			})
+			
 		  
         links = g_links.selectAll("line")
           .attr("x2", (d) => { return d.source.x; })
@@ -977,6 +986,12 @@ function ajax_file_upload(file_obj) {
 		node_id2 = nodesArray[existing_index2].id;
 		}
 		
+		if(ui_add_node==true){
+		node_id1 = nodesArray[selected_node].id;
+		id1 = nodesArray[selected_node].label;
+		console.log("added id from selected node, selected node=" + selected_node + " label=" +id1);
+
+		}
 
         var n1 = {
           index: index1,
@@ -993,6 +1008,12 @@ function ajax_file_upload(file_obj) {
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
         }
+		
+		if(ui_add_node==true){
+			n1 = nodesArray[selected_node]
+		}
+		console.log("n1 = " +JSON.stringify(n1))
+		
 		var n2 = {
           index: index2,
 		  id: node_id2,
@@ -1010,6 +1031,9 @@ function ajax_file_upload(file_obj) {
         }
 		
 		var l_source = i1_exist ? nodesArray[index1] : n1;
+		//if(ui_add_node==true){
+		//	l_source = n1;
+		//}
 		var l_target = i2_exist ? nodesArray[index2] : n2;
 		
         var l = {
@@ -1021,7 +1045,11 @@ function ajax_file_upload(file_obj) {
 		
         linksArray.push(l) 
 
-        if(i1_exist==false){nodesArray.push(n1) }
+        if(i1_exist==false){
+			if(ui_add_node!==true){
+				nodesArray.push(n1) 
+			}
+		}
 
 
 		if(i2_exist==false){nodesArray.push(n2) }
@@ -1358,7 +1386,71 @@ function ajax_file_upload(file_obj) {
 	
 			
 	
+	/////UI////////
 	
+	
+	$('#add').click(function() {
+		$(".input_fields").css("display", "flex");
+		add_active = true
+		
+
+				selected_node = -1;
+				ui_add_node = false;
+				$("#first_input_column_add").css("display", "none");
+				$("#first_input_column").css("display", "block");
+				
+				
+	});
+	
+
+		$('#close_add').click(function() {
+			$(".input_fields").css("display", "none");
+			add_active = false
+		});
+
+	
+	//FILE UPLOAD UI
+	$('#btn_upload1').click(function() {
+		$(".file_and_blur").css("display", "block");
+		upload_active1 = true
+	  });
+	  
+	$('#btn_upload2').click(function() {
+		$(".file_and_blur").css("display", "block");
+		upload_active2 = true
+	});
+	
+
+		$('.close_symbol').click(function() {
+			$(".file_and_blur").css("display", "none");
+			upload_active1 = false
+			upload_active2 = false
+		});
+		
+		
+	//TEXT INPUT UI
+	var text_active = false
+	$('#btn_text1').click(function() {
+		$(".text_and_blur").css("display", "block");
+		text_active = true
+	  });
+	  
+	$('#btn_text2').click(function() {
+		$(".text_and_blur").css("display", "block");
+		text_active = true
+	});
+	
+
+		$('.close_symbol').click(function() {
+			$(".text_and_blur").css("display", "none");
+		});
+
+
+
+
+
+
+		
 	
   </script>
 </body>

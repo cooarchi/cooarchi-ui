@@ -124,6 +124,16 @@ body svg{
 	/* filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));*/
     }
 
+.nodes_button_add{
+	
+	height: 28px;
+    width: 28px;
+	
+}
+
+
+
+
 .slider_fields{
 position: absolute;
 left: 0px;
