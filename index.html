@@ -1232,7 +1232,7 @@ function ajax_file_upload(file_obj) {
 		
 		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
 
-
+		
 		
 		
         var n1 = {
@@ -1331,11 +1331,8 @@ function ajax_file_upload(file_obj) {
 	
 	
 		for(var i=0; i < response.nodes.length; i++){
-
 				load_nodes(response.nodes[i].id, response)
-		
-		
-				//load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, response)
+				//load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, 
 			}
 			
 		for(var i=0; i < response.links.length; i++){	
@@ -1349,6 +1346,45 @@ function ajax_file_upload(file_obj) {
 	});
 
 	}
+	
+	
+	function load_refresh(){	
+		
+		var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": "https://stage.cooarchi.net/data?delta=1",
+	  "method": "GET",
+	  "headers": {
+		"Content-Type": "application/json"
+	  },
+	  "processData": false
+	}
+
+	$.ajax(settings).done(function (response) {	
+	
+	
+	
+	
+	
+	
+		for(var i=0; i < response.nodes.length; i++){
+				load_nodes(response.nodes[i].id, response)
+				//load_elements(response.links[i].source.id,response.links[i].target.id, response.links[i].label,false, 
+			}
+			
+		for(var i=0; i < response.links.length; i++){	
+		load_links(response.links[i], response) 	
+			
+		}	
+			
+			
+			
+	  console.log(response);
+	});
+
+	}	
+
 
 	function save_data(data){
 		
@@ -1446,6 +1482,14 @@ function ajax_file_upload(file_obj) {
 	}
 	
 	
+var intervalId = window.setInterval(function(){
+
+load_refresh()
+
+
+}, 30000);
+
+
 			
 	
 	/////UI////////
