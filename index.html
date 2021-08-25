@@ -304,8 +304,8 @@
 	
 	
 	
-<div class="file_and_blur">
-<div id="drop_file_zone" ondrop="upload_file(event)" ondragover="return false">
+<div class="file_and_blur" id="file1">
+<div id="drop_file_zone" ondrop="upload_file1(event)" ondragover="return false">
 
 <div class="close_symbol"></div>
 
@@ -313,30 +313,73 @@
     <div id="drag_upload_file">
         <div>Drop file here or</div>
 
-        <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
+        <p><input type="button" value="Select File" onclick="file_explorer1();" /></p>
         <input type="file" id="selectfile" />
+		 <br>
 		
-		<div class="img-content"></div>
+		<div class="img-content" id="img-content1"></div>
+		
+		<p><input type="button" value="OK" onclick="save_file1();" /></p>
     </div>
 </div>
 </div>
 
-<div class="text_and_blur">
+
+<div class="file_and_blur" id="file2">
+<div id="drop_file_zone" ondrop="upload_file2(event)" ondragover="return false">
+
+<div class="close_symbol"></div>
+
+
+    <div id="drag_upload_file">
+        <div>Drop file here or</div>
+
+        <p><input type="button" value="Select File" onclick="file_explorer2();" /></p>
+        <input type="file" id="selectfile" />
+		 <br>
+		
+		<div class="img-content" id="img-content2"></div>
+		
+		<p><input type="button" value="OK" onclick="save_file2();" /></p>
+    </div>
+</div>
+</div>
+
+
+
+<div class="text_and_blur" id="text1">
 <div class="longtext_div" >
 <div class="longtext_headline">Your Text</div>
 <div class="close_symbol"><a href="#" class="close"></div>
 
 
 
-<textarea id="longtext" name="longtext_input" rows="4" cols="50">
+<textarea id="longtext1" name="longtext_input" rows="4" cols="50">
   
   </textarea>
+  
+  <p><input type="button" value="OK" onclick="save_text1();" /></p>
+</div>
+</div>
+
+<div class="text_and_blur" id="text2">
+<div class="longtext_div" >
+<div class="longtext_headline">Your Text</div>
+<div class="close_symbol"><a href="#" class="close"></div>
+
+
+
+<textarea id="longtext2" name="longtext_input" rows="4" cols="50">
+  
+  </textarea>
+  
+  <p><input type="button" value="OK" onclick="save_text2();" /></p>
 </div>
 </div>
 
 
 
-<script src="js/upload.js"></script>
+
 
 
 	
@@ -400,20 +443,20 @@
   
 ///////	FILE UPLOAD
 	
-	var fileobj;
-function upload_file(e) {
+	var fileobj1;
+function upload_file1(e) {
     e.preventDefault();
-    fileobj = e.dataTransfer.files[0];
-    ajax_file_upload(fileobj);
+    fileobj1 = e.dataTransfer.files[0];
+    ajax_file_upload(fileobj1);
 	//upload_data(fileobj)
 }
   
-function file_explorer() {
+function file_explorer1() {
     document.getElementById('selectfile').click();
     document.getElementById('selectfile').onchange = function() {
-        fileobj = document.getElementById('selectfile').files[0];
-        ajax_file_upload(fileobj);
-		//upload_data(fileobj)
+        fileobj1 = document.getElementById('selectfile').files[0];
+        ajax_file_upload1(fileobj1);
+		//upload_data(fileobj1)
     };
 }
   
@@ -421,7 +464,7 @@ function file_explorer() {
 
 	
 	
-function ajax_file_upload(file_obj) {
+function ajax_file_upload1(file_obj) {
     if(file_obj != undefined) {
         var form_data = new FormData();                  
         form_data.append('file', file_obj);
@@ -429,13 +472,13 @@ function ajax_file_upload(file_obj) {
 		xhttp.open("POST", "https://stage.cooarchi.net/upload", true);  //https://stage.cooarchi.net/upload
         //xhttp.open("POST", "ajax.php", true);
         xhttp.onload = function(event) {
-            oOutput = document.querySelector('.img-content');
+            oOutput = document.querySelector('#img-content1');
             if (xhttp.status == 200) {
 				var response =  JSON.parse(this.responseText)
 				response_url = response.filename;
 				console.log(response_url)
 
-                oOutput.innerHTML = "<img src='https://stage.cooarchi.net"+ response_url +"' alt='The Image' />";
+                oOutput.innerHTML = "<img class='inserted_img' src='https://stage.cooarchi.net"+ response_url +"' alt='The Image' />";
 				
 				var fileending = response_url.substring(response_url.lastIndexOf('.')+1, response_url.length) || response_url;
 				
@@ -480,8 +523,112 @@ function ajax_file_upload(file_obj) {
 
 
 
+var fileobj2;
+function upload_file2(e) {
+    e.preventDefault();
+    fileobj2 = e.dataTransfer.files[0];
+    ajax_file_upload(fileobj2);
+	//upload_data(fileobj)
+}
+  
+
+function file_explorer2() {
+    document.getElementById('selectfile').click();
+    document.getElementById('selectfile').onchange = function() {
+        fileobj2 = document.getElementById('selectfile').files[0];
+        ajax_file_upload2(fileobj2);
+		//upload_data(fileobj1)
+    };
+}
+  
+  
+
+	
+	
+function ajax_file_upload2(file_obj) {
+    if(file_obj != undefined) {
+        var form_data = new FormData();                  
+        form_data.append('file', file_obj);
+        var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", "https://stage.cooarchi.net/upload", true);  //https://stage.cooarchi.net/upload
+        //xhttp.open("POST", "ajax.php", true);
+        xhttp.onload = function(event) {
+            oOutput = document.querySelector('#img-content2');
+            if (xhttp.status == 200) {
+				var response =  JSON.parse(this.responseText)
+				response_url = response.filename;
+				console.log(response_url)
+
+                oOutput.innerHTML = "<img class='inserted_img' src='https://stage.cooarchi.net"+ response_url +"' alt='The Image' />";
+				
+				var fileending = response_url.substring(response_url.lastIndexOf('.')+1, response_url.length) || response_url;
+				
+				console.log(fileending)
+				
+				var media_type = "none";
+				
+				if(fileending == "jpg" || fileending =="png" ||fileending == "JPG" ||   fileending =="PNG"){
+					media_type = "image"
+				}
+				if(fileending == "mp3" || fileending =="wav" || fileending =="ogg"){
+					media_type = "audio"
+				}
+				if(fileending == "mp4"){
+					media_type = "video"
+				}
+				
+				if(upload_active1){
+					ui_parameter_e1.url =  response_url
+					ui_parameter_e1.mediaType = media_type
+					ui_parameter_e1.isFile = true
+					console.log("upload1 active")
+				}
+				if(upload_active2){
+					ui_parameter_e2.url =  response_url
+					ui_parameter_e2.mediaType = media_type
+					ui_parameter_e2.isFile = true
+					console.log("upload2 active")
+				}
+				
+				
+				
+				
+            } else {
+                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+            }
+        }
+ 
+        xhttp.send(form_data);
+    }
+}
 
 
+function save_file1() {
+	$(".file_and_blur").css("display", "none");
+	console.log("save")
+}
+
+function save_file2() {
+	$(".file_and_blur").css("display", "none");
+	console.log("save")
+}
+
+function save_text1() {
+	ui_parameter_e1.isLongText = true 
+	ui_parameter_e1.longText = $('#longtext1').val()
+	console.log(ui_parameter_e1.longText)
+	
+	$(".text_and_blur").css("display", "none");
+	console.log("save")
+}
+
+function save_text2() {
+	ui_parameter_e2.isLongText =  true
+	ui_parameter_e2.longText = $('#longtext2').val()
+	
+	$(".text_and_blur").css("display", "none");
+	console.log("save")
+}
   
     window.onload = () => {
 	
@@ -707,8 +854,11 @@ function ajax_file_upload(file_obj) {
         nodeImages = update_images.enter()
 			.append("image")
 			.attr("xlink:href", function(d){
-			
-			
+				if(d.isLongText == true){
+					return "icons/file2.png"
+				
+				}
+				
 			   if(d.isFile == true){
 			
 			   
@@ -1463,6 +1613,15 @@ function ajax_file_upload(file_obj) {
 				$("#e1").val("")	
 				$("#rel").val("")					
 				$("#e2").val("")	
+				
+				$("#longtext1").val("")
+				$("#longtext2").val("")
+				
+				$('.inserted_img').remove()
+				
+				
+				
+				
 				console.log("reset")
 	
   
@@ -1514,12 +1673,12 @@ load_refresh()
 	
 	//FILE UPLOAD UI
 	$('#btn_upload1').click(function() {
-		$(".file_and_blur").css("display", "block");
+		$("#file1").css("display", "block");
 		upload_active1 = true
 	  });
 	  
 	$('#btn_upload2').click(function() {
-		$(".file_and_blur").css("display", "block");
+		$("#file2").css("display", "block");
 		upload_active2 = true
 	});
 	
@@ -1534,12 +1693,12 @@ load_refresh()
 	//TEXT INPUT UI
 	var text_active = false
 	$('#btn_text1').click(function() {
-		$(".text_and_blur").css("display", "block");
+		$("#text1").css("display", "block");
 		text_active = true
 	  });
 	  
 	$('#btn_text2').click(function() {
-		$(".text_and_blur").css("display", "block");
+		$("#text2").css("display", "block");
 		text_active = true
 	});
 	
