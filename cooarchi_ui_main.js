@@ -257,6 +257,9 @@ function save_text2() {
 	backend_url = response.settings.backend_url
 	console.log(backend_url);
 	
+	
+	//check user status
+	get_auth()
 
       Array.prototype.delete = function (arr) {
         var t = [];
@@ -737,7 +740,7 @@ function save_text2() {
 		var i1_exist = false;
 		var i2_exist = false;
 	  
-		var existing_index1 = nodesArray.map(function(x) {return x.label; }).indexOf(id1);
+		var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
 		if(existing_index1 !== -1){
 		index1 = existing_index1;
 		i1_exist = true;
@@ -745,7 +748,7 @@ function save_text2() {
 		index1 = nodesArray.length
 		}
 		
-		var existing_index2 = nodesArray.map(function(x) {return x.label; }).indexOf(id2);
+		var existing_index2 = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
 		if(existing_index2 !== -1){
 		index2 = existing_index2;
 		i2_exist = true;
@@ -826,37 +829,66 @@ function save_text2() {
           target: l_target
         }
 		
-        linksArray.push(l) 
+        
 
-        if(i1_exist==false){
-			if(ui_add_node!==true){
-				nodesArray.push(n1) 
-			}
-		}
-
-
-		if(i2_exist==false){nodesArray.push(n2) }
-
-        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
-        simulation.nodes(nodesArray);
-        simulation.alpha(1);
-        simulation.restart();
-        reDraw();
 		
 		var sendObject = {}
 		sendObject.nodes=[n1,n2] //avoid sending both nodes if not added
 		sendObject.links=[l]
 		
-		
 		var sendString = JSON.stringify(sendObject)
-		console.log(sendString)
-		
-		var testString = JSON.stringify(test_savedata)
 
-		
-		if(save==true){
-			save_data(sendString)
+		//save the data and add the unuqe ids to the nodes, then add nodes and links to visualization
+		save_url = backend_url + "/save"
+		var settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": save_url,
+		  "method": "POST",
+		  "headers": {
+			"Content-Type": "application/json"
+		  },
+		  "processData": false,
+		  "data": sendString
 		}
+		$.ajax(settings).done(function (response) {
+
+			if(i1_exist==false){
+				if(ui_add_node!==true){
+					n1.id = response.nodes[0].id
+					nodesArray.push(n1) 
+				}
+			}
+
+			if(i2_exist==false){
+				
+				n2.id = response.nodes[1].id
+				nodesArray.push(n2) 
+				}
+			  
+			  
+			var l_source = i1_exist ? nodesArray[index1] : n1;
+
+			var l_target = i2_exist ? nodesArray[index2] : n2;
+			
+			var l = {
+			  index: linksArray.length,
+			  label: linkname,
+			  source: l_source,
+			  target: l_target
+			}
+
+			  linksArray.push(l) 
+			  
+
+			simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+			simulation.nodes(nodesArray);
+			simulation.alpha(1);
+			simulation.restart();
+			reDraw();
+		
+		});
+	
 		
 		//reset all ui parameter
 		ui_parameter_e1.isCoreElement = false
@@ -884,128 +916,19 @@ function save_text2() {
       }
 	  
 	 
-////LOAD ELEMENTS FROM DATABASE
-      function load_elements(id1,id2, linkname, save, response) {
-		var index1
-		var index2
-		var i1_exist = false;
-		var i2_exist = false;
-	  
-		var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
-		if(existing_index1 !== -1){
-		index1 = existing_index1;
-		i1_exist = true;
-		}else{
-		index1 = nodesArray.length
-		}
-
-		var existing_index2 = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
-		if(existing_index2 !== -1){
-		index2 = existing_index2;
-		i2_exist = true;
-		}else{
-		index2 = nodesArray.length
-		}
-		
-		
-		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
-		var response_index2 = response.nodes.map(function(x) {return x.id; }).indexOf(id2);
-
-		
-		
-        var n1 = {
-          index: index1,
-		  id: response.nodes[response_index1].id,
-		  label: response.nodes[response_index1].label,
-		  isCoreElement: response.nodes[response_index1].isCoreElement, 
-		  isFile: response.nodes[response_index1].isFile, 
-		  isLocation: response.nodes[response_index1].isLocation , 
-		  isLongText: response.nodes[response_index1].isLongText, 
-		  longText: response.nodes[response_index1].longText, 
-		  mediaType: response.nodes[response_index1].mediaType, 
-		  triggerWarning: response.nodes[response_index1].isTrigger,
-		  url: response.nodes[response_index1].url,
-          x: w/2, //d3.event.x
-          y: h/2 //d3.event.y
-        }
-		var n2 = {
-          index: index2,
-		  id: response.nodes[response_index2].id,
-		  label: response.nodes[response_index2].label,
-		  isCoreElement: response.nodes[response_index2].isCoreElement, 
-		  isFile: response.nodes[response_index2].isFile, 
-		  isLocation: response.nodes[response_index2].isLocation , 
-		  isLongText: response.nodes[response_index2].isLongText, 
-		  longText: response.nodes[response_index2].longText, 
-		  mediaType: response.nodes[response_index2].mediaType, 
-		  triggerWarning: response.nodes[response_index2].isTrigger,
-		  url: response.nodes[response_index2].url,
-          x: w/2, //d3.event.x
-          y: h/2 //d3.event.y
-        }
-		
-
-		var l_source = i1_exist ? nodesArray[index1] : n1;
-		var l_target = i2_exist ? nodesArray[index2] : n2;
-		
-        var l = {
-          index: linksArray.length,
-		  label: linkname,
-          source: l_source,
-          target: l_target
-        }
-		
-        linksArray.push(l) 
-
-        if(i1_exist==false){nodesArray.push(n1) }
-
-
-		if(i2_exist==false){nodesArray.push(n2) }
-
-        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
-        simulation.nodes(nodesArray);
-        simulation.alpha(1);
-        simulation.restart();
-        reDraw();
-		
-		var sendObject = {}
-		sendObject.nodes=[n1,n2] //avoid sending both nodes if not added
-		sendObject.links=[l]
-		
-		
-		var sendString = JSON.stringify(sendObject)
-		//console.log(sendString)
-		var testString = JSON.stringify(test_savedata)
-		//console.log(testString)
-		if(save==true){
-			save_data(sendString)
-		}
-		
-		
-		//var completeCoarchi = {}
-		//completeCoarchi.nodes=nodesArray
-		//completeCoarchi.links=linksArray
-		//sendCooarchi = JSON.stringify(completeCoarchi)
-		//console.log(sendCooarchi)
-      }
-
-
-
-
-
 
 ////LOAD ELEMENTS FROM DATABASE
       function load_nodes(id1, response) {
-	  
-	  
+	    var exist = false;
+	    var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
+		if(existing_index1 !== -1){console.log("exist")
+			return;
+		}
 	
-		
 		
 		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
 
-		
-		
-		
+	
         var n1 = {
           index: nodesArray.length,
 		  id: response.nodes[response_index1].id,
@@ -1043,6 +966,13 @@ function save_text2() {
 		id1=link.source.id;
 		id2=link.target.id;
 		
+		//var exist = false;
+	    //var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
+		//var existing_indexq = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
+		//if(existing_index1 !== -1 && existing_index1 !== -1){console.log("exist")
+			//return;
+		//}
+		
 		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
 		var response_index2 = response.nodes.map(function(x) {return x.id; }).indexOf(id2);
 
@@ -1058,7 +988,6 @@ function save_text2() {
 		
         linksArray.push(l) 
 
-      
 
         simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
         simulation.nodes(nodesArray);
@@ -1069,7 +998,43 @@ function save_text2() {
 		
       }
 
+////LOAD ELEMENTS FROM DATABASE
+      function load_links_refresh(link, response) {
+		
+		
+		id1=link.source.id;
+		id2=link.target.id;
 
+	    var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
+		var existing_indexq = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
+		if(existing_index1 !== -1 && existing_index1 !== -1){console.log("exist")
+			return;
+		}
+		
+		var response_index1 = response.nodes.map(function(x) {return x.id; }).indexOf(id1);
+		var response_index2 = response.nodes.map(function(x) {return x.id; }).indexOf(id2);
+
+		var l_source = nodesArray[response_index1] 
+		var l_target = nodesArray[response_index2] 
+		
+        var l = {
+          index: linksArray.length,
+		  label: link.label,
+          source: l_source,
+          target: l_target
+        }
+		
+        linksArray.push(l) 
+
+
+        simulation.force("link", d3.forceLink(linksArray).distance(100).strength(1))
+        simulation.nodes(nodesArray);
+        simulation.alpha(1);
+        simulation.restart();
+        reDraw();
+		
+		
+      }
 
 
 
@@ -1138,7 +1103,7 @@ function save_text2() {
 	
 	
 	
-	
+	console.log(response);
 	
 	
 		for(var i=0; i < response.nodes.length; i++){
@@ -1147,18 +1112,48 @@ function save_text2() {
 			}
 			
 		for(var i=0; i < response.links.length; i++){	
-		load_links(response.links[i], response) 	
+		load_links_refresh(response.links[i], response) 	
 			
 		}	
 			
+			
+			
+	  
+	});
+
+	}	
+
+
+	function get_auth(){	
+	console.log("loading new data ")
+		var auth_url= backend_url + "/auth"
+		var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": auth_url,
+	  "method": "GET",
+	  "headers": {
+		"Content-Type": "application/json"
+	  },
+	  "processData": false
+	}
+
+	$.ajax(settings).done(function (response) {	
+	
+	
+	if(response=false){
+		console.log("no user loged in")
+	}
+	
+	
 			
 			
 	  console.log(response);
 	});
 
 	}	
-
-
+	
+	
 	function save_data(data){
 		save_url = backend_url + "/save"
 		var settings = {
@@ -1172,9 +1167,9 @@ function save_text2() {
 	  "processData": false,
 	  "data": data
 	}
-
 	$.ajax(settings).done(function (response) {
 	  console.log(response);
+	  return response;
 	});
 
 	}
