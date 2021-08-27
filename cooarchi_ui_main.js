@@ -921,7 +921,7 @@ function save_text2() {
       function load_nodes(id1, response) {
 	    var exist = false;
 	    var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
-		if(existing_index1 !== -1){console.log("exist")
+		if(existing_index1 !== -1){console.log("node exist and wont be added")
 			return;
 		}
 	
@@ -1005,9 +1005,9 @@ function save_text2() {
 		id1=link.source.id;
 		id2=link.target.id;
 
-	    var existing_index1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
-		var existing_indexq = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
-		if(existing_index1 !== -1 && existing_index1 !== -1){console.log("exist")
+	    var existing1 = nodesArray.map(function(x) {return x.id; }).indexOf(id1);
+		var existing2 = nodesArray.map(function(x) {return x.id; }).indexOf(id2);
+		if(existing1 !== -1 && existing2 !== -1){console.log("links exist and wont be added")
 			return;
 		}
 		
