@@ -220,6 +220,10 @@ span.longtext {
 	padding: 10px;
 }
 
+a {
+	text-decoration: none;
+	color: var(--sec-fg-color);
+}
 .img_logo{
 
 	position: absolute;

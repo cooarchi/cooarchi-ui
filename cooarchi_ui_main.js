@@ -1135,22 +1135,23 @@ function save_text2() {
 	  "headers": {
 		"Content-Type": "application/json"
 	  },
-	  "processData": false
+	  "processData": false,
+	  
 	}
 
 	$.ajax(settings).done(function (response) {	
 	
 	
-	if(response=false){
-		console.log("no user loged in")
-	}
+	$("#account").append('<div class="logo_text"><a href=" ' + backend_url + '/logout">Log out</a></div>') })
 	
-	
-			
-			
-	  console.log(response);
-	});
 
+
+
+
+	$.ajax(settings).fail(function () { $("#account").append('<div class="logo_text"><a href=" ' + backend_url + '/login">Log in</a></div>') });
+	
+	
+	
 	}	
 	
 	
