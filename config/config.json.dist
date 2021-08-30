@@ -1,0 +1,5 @@
+{
+    "settings" : {
+        "backend_url" : "{{backendUrl}}"
+    }
+}
