@@ -3,7 +3,7 @@
 	//var backend_url = 
 
 	
-
+	
 
 
 	
@@ -253,6 +253,9 @@ function save_text2() {
 /////// Start of the simulation with loading of config.json
 	var backend_url
 	d3.json("config/config.json", function(response) {
+		
+		
+
     
 	backend_url = response.settings.backend_url
 	console.log(backend_url);
@@ -260,23 +263,16 @@ function save_text2() {
 	
 	//check user status
 	get_auth()
+	
+	
+	
+//////// Initiate tabs ui lements
+		init_tabs1()
+		init_tabs2()
+		
+		
 
-      Array.prototype.delete = function (arr) {
-        var t = [];
-        for (let j = 0; j < this.length; ++j) {
-          let f = false;
-          for (let i = 0; i < arr.length; ++i) {
-            if (j == arr[i]) {
-              f = true
-            }
-          }
-          if (!f) {
-            t.push(this[j])
-          }
-        }
-        return t;
-      }
-	  
+
 	  
 	
 	  

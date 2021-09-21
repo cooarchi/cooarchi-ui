@@ -14,7 +14,7 @@
 				
 				
 	<script src="lib/jquery-3.6.0.min.js"></script>	
-	<script src="js/tabs.js"></script>	
+
 	
 </head>
 
@@ -241,63 +241,34 @@
 	
 	
 	  <div class="input_column" id="first_input_column">
-	  <h3>Element</h3>
-	
 
 	
-	<div class="tab">
-  <button class="tablinks1" onclick="tab1(event, 'Edit1')"><img style="width:30px;height:30px" src="icons/edit.png"></img></button>
-  <button class="tablinks1" onclick="tab1(event, 'Upload1')"><img style="width:30px;height:30px" src="icons/folder.png"></img></button>
-  <button class="tablinks1" onclick="tab1(event, 'Text1')"><img style="width:30px;height:30px" src="icons/file.png"></img></button>
-</div>
-
-
-<!-- Tab content -->
-<div id="Edit1" class="tabcontent1">
-  
-  <input class="input_text" type="text" id="e1" name="fname">
-</div>
-
-
-<div id="Upload1" class="tabcontent1">
-
-  <div id="drop_file_zone_tab" ondrop="upload_file(event)" ondragover="return false">
-    <div id="drag_upload_file">
-        <div>Drop file here or</div>
-
-        <p><input type="button" value="Select File" onclick="file_explorer();" /></p>
-        <input type="file" id="selectfile" />
-		
-		<div class="img-content"></div>
-    </div>
-</div>
-</div>
-
-
-
-<div id="Text1" class="tabcontent1">
-
-  <button>Open Editor</button>
-</div>
-	
-	
-
 	  
+	  <label for="rel">Element</label><br>
+	  <input class="input_text" type="text" id="e1" name="fname">
 	  <br>
-	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Is a Place</span><br>
+	  
+	  <button><span class="upload" id="btn_upload1"></span></button>
+	  <button><span class="longtext" id="btn_text1"></span></button>
+	  <br>
+	  
+	  <label for="rel"> </label><br>
+	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Mark as Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger1"/> <span class="checkbox_text">Triggerwarning</span>
 	  
+	  </div>
+	   <div class="input_column" id="first_input_column_add">
+	   <h3>Element 1</h3>
+	   <br>
+	   Node selected
 	  </div>
 	  
 	  
 	  
 	  
-	  
-	  
 	  <div class="input_column">
-	  <h3>Relation</h3>
 
-	 <br>
+	  <label for="rel">Relation</label><br>
 	  <input class="input_text" type="text" id="rel" name="lname">
 	  </div>
 	  
@@ -305,57 +276,18 @@
 	  
 	  
 	 <div class="input_column">
-	  <h3>Element</h3>
-	  
-	  
-	  	<div class="tab">
-  <button class="tablinks2" onclick="tab2(event, 'Edit2')"><img style="width:30px;height:30px" src="icons/edit.png"></img></button>
-  <button class="tablinks2" onclick="tab2(event, 'Upload2')"><img style="width:30px;height:30px" src="icons/folder.png"></img></button>
-  <button class="tablinks2" onclick="tab2(event, 'Text2')"><img style="width:30px;height:30px" src="icons/file.png"></img></button>
-</div>
-
-
-<!-- Tab content -->
-<div id="Edit2" class="tabcontent2">
-  
-  <input class="input_text" type="text" id="e1" name="fname">
-</div>
-
-
-<div id="Upload2" class="tabcontent2">
-
-  <div id="drop_file_zone_tab" ondrop="upload_file1(event)" ondragover="return false">
-    <div id="drag_upload_file">
-        <div>Drop file here or</div>
-
-        <p><input type="button" value="Select File" onclick="file_explorer1();" /></p>
-        <input type="file" id="selectfile" />
-		
-		<div class="img-content"></div>
-    </div>
-</div>
-</div>
-
-
-
-<div id="Text2" class="tabcontent2">
-
-  <button>Open Editor</button>
-</div>
-	  
 	
-	  <!--
-	  <label for="rel">Description</label><br>
+	  
+	  <label for="rel">Element</label><br>
 	  <input class="input_text" type="text" id="e2" name="fname">
 	  <br>
 	  
-	  <label for="rel">Add Attachments</label><br>
 	  <button><span class="upload" id="btn_upload2"></span></button>
 	  <button><span class="longtext" id="btn_text2"></span></button>
-	  <br>-->
-	  
 	  <br>
-	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Is a Place</span><br>
+	  
+	  <label for="rel"> </label><br>
+	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Mark as Place</span><br>
 	  <input type="checkbox" class="checkbox" id="trigger2"/> <span class="checkbox_text">Triggerwarning</span>
 	  
 	  </div>
