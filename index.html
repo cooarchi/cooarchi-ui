@@ -241,16 +241,41 @@
 	
 	
 	  <div class="input_column" id="first_input_column">
-
-	
+  
+  
 	  
 	  <label for="rel">Element</label><br>
-	  <input class="input_text" type="text" id="e1" name="fname">
+	  
+	  
+	  
+	  <div class="wrapper">
+    <div class="buttonWrapper">
+      <button class="tab-button active" style="border-top-left-radius: 10px;" data-id="home"><img style="width:30px;height:30px;pointer-events:none; " src="icons/edit.png"></img></button>
+      <button class="tab-button" data-id="about"><img style="width:30px;height:30px;pointer-events:none; " src="icons/folder.png"></img></button>
+      <button class="tab-button" style="border-top-right-radius: 10px;" data-id="contact"><img style="width:30px;height:30px;pointer-events:none; " src="icons/file.png"></img></button>
+    </div>
+    <div class="contentWrapper">
+      <p class="content active" id="home">
+	     Enter element text<br>
+         <input class="input_text" type="text" id="e1" name="fname">
 	  <br>
 	  
-	  <button><span class="upload" id="btn_upload1"></span></button>
-	  <button><span class="longtext" id="btn_text1"></span></button>
+      </p>
+      <p class="content" id="about">
+        <button><span class="upload" id="btn_upload1">Open file upload</span></button>
+      </p>
+      <p class="content" id="contact">
+       <button><span class="longtext" id="btn_text1">Open text editor</span></button>
 	  <br>
+      </p>
+    </div>
+  </div>
+  
+  
+  
+	 
+	 
+	  
 	  
 	  <label for="rel"> </label><br>
 	  <input type="checkbox" class="checkbox" id="location1" /> <span class="checkbox_text">Mark as Place</span><br>
@@ -279,12 +304,36 @@
 	
 	  
 	  <label for="rel">Element</label><br>
-	  <input class="input_text" type="text" id="e2" name="fname">
-	  <br>
 	  
-	  <button><span class="upload" id="btn_upload2"></span></button>
-	  <button><span class="longtext" id="btn_text2"></span></button>
+	  
+	  	 <div class="wrapper2">
+    <div class="buttonWrapper">
+      <button class="tab-button2 active" style="border-top-left-radius: 10px;" data-id="home2"><img style="width:30px;height:30px;pointer-events:none; " src="icons/edit.png"></button>
+      <button class="tab-button2" data-id="about2"><img style="width:30px;height:30px;pointer-events:none; " src="icons/folder.png"></button>
+      <button class="tab-button2" style="border-top-right-radius: 10px;" data-id="contact2"><img style="width:30px;height:30px;pointer-events:none; " src="icons/file.png"></button>
+    </div>
+    <div class="contentWrapper2">
+      <p class="content2 active" id="home2">
+	  Enter element text<br>
+       <input class="input_text" type="text" id="e2" name="fname">
 	  <br>
+      </p>
+      <p class="content2" id="about2">
+        <button><span class="upload" id="btn_upload2">Open file upload</span></button>
+      </p>
+      <p class="content2" id="contact2">
+       <button><span class="longtext" id="btn_text2">Open text editor</span></button>
+	  <br>
+      </p>
+    </div>
+  </div>
+  
+  
+  
+
+	  
+	  
+	  
 	  
 	  <label for="rel"> </label><br>
 	  <input type="checkbox" class="checkbox" id="location2" /> <span class="checkbox_text">Mark as Place</span><br>
@@ -294,9 +343,9 @@
 	  
 	  
 	  <div class="input_column">
-	  <a class="button_ui" id="button_cooarch">cooArch!</a><br>
-	  <a class="button_ui" id="reset_add">reset</a><br>
-	  <a class="button_ui" id="close_add">close</a><br>
+	  <button class="button_ui" id="button_cooarch">cooArch!</button><br>
+	  <button class="button_ui" id="reset_add">reset</button><br>
+	  <button class="button_ui" id="close_add">close</button><br>
 	  </div>
     </div>
 	
@@ -380,6 +429,7 @@
 
 
  <script src="cooarchi_ui_main.js"></script>
+ 	<script src="js/tabs-simple.js"></script>	
 </body>
 
 </html>
