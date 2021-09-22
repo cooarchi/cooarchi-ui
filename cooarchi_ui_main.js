@@ -242,6 +242,7 @@ function save_text1() {
 function save_text2() {
 	ui_parameter_e2.isLongText =  true
 	ui_parameter_e2.longText = $('#longtext2').val()
+	console.log(ui_parameter_e2.longText)
 	
 	$(".text_and_blur").css("display", "none");
 	console.log("save")
@@ -371,81 +372,7 @@ function save_text2() {
 
 	//THIS PART IS ONLY FOR TESTDATA
 
-		var links = g_links.selectAll(".glinks")
-		.data(linksArray)
-        .enter().append("g").attr("class", "glinks").append("line")
-        .attr("x2", (d) => { return d.source.x; })
-        .attr("y2", (d) => { return d.source.y; })
-        .attr("x1", (d) => { return d.target.x; })
-        .attr("x1", (d) => { return d.target.y; })
 		
-		
-	
-	 var nodeImages = g_images.selectAll("image")
-        .data(nodesArray)
-        .enter().append("image")
-		.attr("xlink:href", function(d){
-			   if (d.isLocation == true){
-			   return "primitives/location.png"
-			   }else{return "primitives/cube_bevel_azure512.png"}
-			})
-        .attr("x", (d) => { return d.x; })
-        .attr("y", (d) => { return d.y; })
-		.attr("width", 16)
-		.attr("height", 16)	  
-		
-		  
-      var nodes = g_nodes.selectAll("circle")
-        .data(nodesArray)
-        .enter().append("circle")
-        .attr("cx", (d) => { return d.x; })
-        .attr("cy", (d) => { return d.y; })
-		.attr('fill', "url(#myImage)")
-
-		var hitboxes = g_hitboxes.selectAll("circle")
-        .data(nodesArray)
-        .enter().append("circle")
-        .attr("cx", (d) => { return d.x; })
-        .attr("cy", (d) => { return d.y; })
-
-		
-		
-		var buttons = g_buttons.selectAll("image")
-        .data(nodesArray)
-        .enter().append("image")
-        .attr("x", (d) => { return d.x; })
-        .attr("y", (d) => { return d.y; })
-		  
-		
-		//labels on nodes
-		var lables = g_lables.selectAll("text")
-        .data(nodesArray)
-        .enter().append("text")
-		.text((d) => { return d.label; })
-
-		
-		
-		//labels on text
-		var linkText = g_linknames.selectAll(".text")
-		.data(linksArray)
-		.append("text")
-		.attr("font-family", "Arial, Helvetica, sans-serif")
-		.attr("x", function(d) {
-			if (d.target.x > d.source.x) {
-				return (d.source.x + (d.target.x - d.source.x)/2); }
-			else {
-				return (d.target.x + (d.source.x - d.target.x)/2); }
-		})
-		.attr("y", function(d) {
-			if (d.target.y > d.source.y) {
-				return (d.source.y + (d.target.y - d.source.y)/2); }
-			else {
-				return (d.target.y + (d.source.y - d.target.y)/2); }
-		})
-		.attr("fill", "Black")
-		.style("font", "normal 12px Arial")
-		.attr("dy", ".35em")
-		.text(function(d) { return d.name;  });
 
 		
 		
@@ -527,7 +454,7 @@ function save_text2() {
             .data(nodesArray);
 		update_hitboxes.exit().remove();
 		hitboxes = update_hitboxes.enter()
-			.append("g")
+			.append("g").attr("class", "ghitbox")
             .append("circle")
             .merge(update_hitboxes)
 			
@@ -586,6 +513,45 @@ function save_text2() {
 	  
 	  var selected_node
 	  var playback
+	  
+	  
+	  popuptext = g_pan.enter()
+		  .append("text")
+		  .text((d) => { return "" })
+	  
+function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = 0, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+            }
+        }
+    });
+}	  
+	  
       function ticked() {
 	  
 	  	nodeImages	
@@ -595,7 +561,10 @@ function save_text2() {
 			
         nodes.attr("cx", (d) => { return d.x; })
           .attr("cy", (d) => { return d.y; })
-		  
+		 
+		popuptext 	
+		.attr("x", (d) => { return d.x -image_width/2; })
+		.attr("y", (d) => { return d.y -image_height/2; })		
 		  
 		  //hitboxes for the selection
 		 hitboxes.attr("cx", (d) => { return d.x; })
@@ -609,9 +578,30 @@ function save_text2() {
             // always select this node
             d3.select(this).classed("selected", d.selected = !d.previouslySelected);
 			
+				selected_node = d.index;
+			console.log(selected_node)
+			
+			
 			if(d.mediaType=="audio"){
 				console.log("audio selected")
 				
+				
+				popuptext.remove();
+				
+				 popuptext = g_hitboxes.selectAll(".ghitbox")
+				 .filter(function (d) { return d.index === selected_node;})
+				 . append("g")
+				.append("text")
+				.text((d) => { return "A pop up text for seeing how this long text stuff goes, it should also line wrap at that point.."})
+				.attr("class", ".pop_up_text")
+				.attr("x", (d) => { return d.x+150; })
+				.attr("y", (d) => { return d.y; })
+				.call(wrap, 400);
+				
+				//d3.select(this).append("text")
+				//.text(function(d) { return "TEST" })
+				//.attr("x", (d) => { return d.x; })
+				//.attr("y", (d) => { return d.y; });
 				
 				if(playback!== undefined){
 					playback.pause();
@@ -627,8 +617,15 @@ function save_text2() {
 				
 				
 			}
-			selected_node = d.index;
-			console.log(selected_node)
+			
+			if(d.isLongText==true){
+				console.log("LongText selected")
+				
+
+				
+			}
+			
+		
 			
 			
         })
@@ -672,6 +669,12 @@ function save_text2() {
 				if(playback!== undefined){
 					
 				}
+				 popuptext.remove()
+				 popuptext = g_pan.enter()
+				  .append("text")
+				  .text((d) => { return "" })
+	  
+	  
 					playback.pause();
 					playback.currentTime = 0;
               console.log("click on background")
@@ -814,8 +817,10 @@ function save_text2() {
 		  url: ui_parameter_e2.url,
           x: w/2, //d3.event.x
           y: h/2 //d3.event.y
+
         }
 		
+				console.log("n2 = " +JSON.stringify(n2))
 		var l_source = i1_exist ? nodesArray[index1] : n1;
 		//if(ui_add_node==true){
 		//	l_source = n1;
