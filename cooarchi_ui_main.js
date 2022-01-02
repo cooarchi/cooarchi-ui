@@ -232,6 +232,7 @@ function save_file2() {
 
 function save_text1() {
 	ui_parameter_e1.isLongText = true 
+	ui_parameter_e1.label = $('#longtext1').val()
 	ui_parameter_e1.longText = $('#longtext1').val()
 	console.log(ui_parameter_e1.longText)
 	
@@ -241,6 +242,7 @@ function save_text1() {
 
 function save_text2() {
 	ui_parameter_e2.isLongText =  true
+	ui_parameter_e2.label = $('#longtext2').val()
 	ui_parameter_e2.longText = $('#longtext2').val()
 	console.log(ui_parameter_e2.longText)
 	
@@ -586,17 +588,7 @@ function wrap(text, width) {
 				console.log("audio selected")
 				
 				
-				popuptext.remove();
 				
-				 popuptext = g_hitboxes.selectAll(".ghitbox")
-				 .filter(function (d) { return d.index === selected_node;})
-				 . append("g")
-				.append("text")
-				.text((d) => { return "A pop up text for seeing how this long text stuff goes, it should also line wrap at that point.."})
-				.attr("class", ".pop_up_text")
-				.attr("x", (d) => { return d.x+150; })
-				.attr("y", (d) => { return d.y; })
-				.call(wrap, 400);
 				
 				//d3.select(this).append("text")
 				//.text(function(d) { return "TEST" })
@@ -620,7 +612,19 @@ function wrap(text, width) {
 			
 			if(d.isLongText==true){
 				console.log("LongText selected")
+				console.log(d.label)
+				console.log(d.longText)
+				popuptext.remove();
 				
+				 popuptext = g_hitboxes.selectAll(".ghitbox")
+				 .filter(function (d) { return d.index === selected_node;})
+				 . append("g")
+				.append("text")
+				.text((d) => { return d.longText})
+				.attr("class", ".pop_up_text")
+				.attr("x", (d) => { return d.x+150; })
+				.attr("y", (d) => { return d.y; })
+				.call(wrap, 400);
 
 				
 			}

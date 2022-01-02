@@ -9,7 +9,7 @@ html{
                 
 }
 :root {
-  --canvas-background: #FFF6DA;
+  --canvas-background: rgba(255,255,255,0);
   --main-bg-color: #FFF6DA;
   --sec-bg-color: #84F2D6;
   --main-fg-color: #FC6B3F ;
@@ -49,6 +49,17 @@ body
 	   -khtml-user-select: none; /* Konqueror HTML */
 	   -moz-user-select: none; /* Firefox */
 	   -ms-user-select: none; /* Internet Explorer/Edge */
+	    background: radial-gradient(circle at 6.7% 0, 
+         rgba(255,0,0,.5), rgba(255,0,0,0) 70.71%), 
+		 
+		 radial-gradient(circle at 93.3% 0, 
+         rgba(255,0,0,.5), rgba(255,0,0,0) 70.71%), 
+		 
+    radial-gradient(circle at 6.7% 75%, 
+         rgba(0,0,255,.5), rgba(0,0,255,0) 70.71%), 
+		 
+    radial-gradient(circle at 93.3% 75%, 
+         rgba(0,255,0,.5), rgba(0,255,0,0) 70.71%);
 }
 
 
