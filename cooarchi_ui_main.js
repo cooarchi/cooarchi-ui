@@ -325,9 +325,9 @@ function save_text2() {
 		
 		
 		//FORCE SETTINGS
-		var charge_strength = -10;
-		var link_distance = 20;
-		var link_strenght = 1;
+		var charge_strength = 10;
+		var link_distance = 10;
+		var link_strenght = 10;
 		var collision_radius = 100;
 		
 		//image SETTINGS
@@ -338,10 +338,10 @@ function save_text2() {
         .force("charge", d3.forceManyBody().strength(charge_strength))
         .force("link", d3.forceLink(linksArray).distance(link_distance).strength(link_strenght))
 		.force('collision', d3.forceCollide().radius(collision_radius))
-		//.force("radial", d3.forceRadial(1000, w / 2, h / 2))
-        //.force("center", d3.forceCenter(w/2, h/2))
-        .force("x", d3.forceX(w / 2))
-        .force("y", d3.forceY(h / 2))
+		//.force("radial", d3.forceRadial(500, w / 2, h / 2))
+        .force("center", d3.forceCenter(w/2, h/2))
+        //.force("x", d3.forceX(w / 2))
+        //.force("y", d3.forceY(h / 2))
         .on("tick", ticked);
 
 
