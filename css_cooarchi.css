@@ -628,6 +628,15 @@ p {
   display: block;
 }
 
+
+tspan {
+
+	fill: var( --main-fg-color);
+    text-shadow: 3px 2px 10px black ;
+    font-size: 24px;
+
+}
+
 .content2.active {
   display: block;
 }

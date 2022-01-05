@@ -338,10 +338,13 @@ function save_text2() {
         .force("charge", d3.forceManyBody().strength(charge_strength))
         .force("link", d3.forceLink(linksArray).distance(link_distance).strength(link_strenght))
 		.force('collision', d3.forceCollide().radius(collision_radius))
-		//.force("radial", d3.forceRadial(500, w / 2, h / 2))
+		//.force("radial", d3.forceRadial(1000, w / 2, h / 2))
         .force("center", d3.forceCenter(w/2, h/2))
-        //.force("x", d3.forceX(w / 2))
-        //.force("y", d3.forceY(h / 2))
+        //.force("x", d3.forceX(w / 2).strength(0.05).x(w))
+        .force("y", d3.forceY(h / 2).strength(0.05).y(h*2))
+		 //.force("forceY")
+        //.strength(100)
+        //.y(height * 1)
         .on("tick", ticked);
 
 
@@ -537,6 +540,9 @@ function wrap(text, width) {
                         .attr("x", x)
                         .attr("y", y)
                         .attr("dy", dy + "em");
+
+
+						
         while (word = words.pop()) {
             line.push(word);
             tspan.text(line.join(" "));
@@ -548,7 +554,14 @@ function wrap(text, width) {
                             .attr("x", x)
                             .attr("y", y)
                             .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
+                            .text(word)
+						//.append("rect")
+						//.attr("x", x)
+                        //.attr("y", y)
+						//.attr("width", width)
+						//.attr("height", 30)
+						//.attr("fill", "black")
+						;
             }
         }
     });
