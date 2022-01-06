@@ -77,7 +77,10 @@ body
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	background: url(assets/dark-gradient.svg);
+	background-size: 100%;
+
+	background-image: url(assets/dark-gradient.svg);
+	backdrop-filter: blur(20px);
 
 }
 
@@ -127,7 +130,7 @@ body svg{
 	stroke: var(--main-fg-color);
 	fill: var(--main-fg-color);
     background-color: transparent;
-    stroke-width: 2;
+    //stroke-width: 2;
 
 	/* filter: drop-shadow( 0px 0px 10px rgba(255, 255, 255, .3));*/
     }
@@ -435,7 +438,7 @@ a {
     background-color: var( --sec-bg-color);
     border: var( --main-fg-color) 5px solid;
     width: 290px;
-    height: 200px;
+    
     padding: 2px;
     font-size: 18px;
 	z-index: 10;
@@ -640,3 +643,12 @@ tspan {
 .content2.active {
   display: block;
 }
+
+.text1_selected{display: none}
+.text2_selected{display: none}
+.img1_selected{display: none}
+.img2_selected{display: none}
+				
+				
+				
+				

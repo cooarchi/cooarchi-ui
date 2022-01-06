@@ -47,6 +47,10 @@
 	ui_parameter_e2.url = ' '	  
 		  
 	var response_url;
+	var response_url2;
+
+	$("#longtext1").val("")
+	$("#longtext2").val("")
 
 
 	
@@ -173,12 +177,12 @@ function ajax_file_upload2(file_obj) {
             oOutput = document.querySelector('#img-content2');
             if (xhttp.status == 200) {
 				var response =  JSON.parse(this.responseText)
-				response_url = response.filename;
-				console.log(response_url)
+				response_url2 = response.filename;
+				console.log(response_url2)
 
-                oOutput.innerHTML = "<img class='inserted_img' src='" + backend_url + response_url +"' alt='The Image' />";
+                oOutput.innerHTML = "<img class='inserted_img' src='" + backend_url + response_url2 +"' alt='The Image' />";
 				
-				var fileending = response_url.substring(response_url.lastIndexOf('.')+1, response_url.length) || response_url;
+				var fileending = response_url2.substring(response_url2.lastIndexOf('.')+1, response_url2.length) || response_url2;
 				
 				console.log(fileending)
 				
@@ -199,12 +203,17 @@ function ajax_file_upload2(file_obj) {
 					ui_parameter_e1.mediaType = media_type
 					ui_parameter_e1.isFile = true
 					console.log("upload1 active")
+
+				
+
 				}
 				if(upload_active2){
-					ui_parameter_e2.url =  response_url
+					ui_parameter_e2.url =  response_url2
 					ui_parameter_e2.mediaType = media_type
 					ui_parameter_e2.isFile = true
 					console.log("upload2 active")
+
+				
 				}
 				
 				
@@ -223,11 +232,17 @@ function ajax_file_upload2(file_obj) {
 function save_file1() {
 	$(".file_and_blur").css("display", "none");
 	console.log("save")
+	if(ui_parameter_e2.url != ' '){
+		$(".img1_selected").css("display", "block");
+	}
 }
 
 function save_file2() {
 	$(".file_and_blur").css("display", "none");
 	console.log("save")
+	if(ui_parameter_e2.url != ' '){
+		$(".img2_selected").css("display", "block");
+	}
 }
 
 function save_text1() {
@@ -235,9 +250,12 @@ function save_text1() {
 	ui_parameter_e1.label = $('#longtext1').val()
 	ui_parameter_e1.longText = $('#longtext1').val()
 	console.log(ui_parameter_e1.longText)
-	
 	$(".text_and_blur").css("display", "none");
-	console.log("save")
+	if($('#longtext2').val() != ""){
+		$(".text1_selected").css("display", "block");
+	}
+	
+	console.log("saved text: " + $('#longtext2').val())
 }
 
 function save_text2() {
@@ -247,6 +265,10 @@ function save_text2() {
 	console.log(ui_parameter_e2.longText)
 	
 	$(".text_and_blur").css("display", "none");
+	
+	if($('#longtext2').val() != ""){
+		$(".text2_selected").css("display", "block");
+	}
 	console.log("save")
 }
   
@@ -567,6 +589,13 @@ function wrap(text, width) {
     });
 }	  
 	  
+	  
+	  function dist(x1,y1,x2,y2){ 
+		  if(!x2) x2=0; 
+		  if(!y2) y2=0;
+		  return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)); 
+	  }
+  
       function ticked() {
 	  
 	  	nodeImages	
@@ -576,6 +605,20 @@ function wrap(text, width) {
 			
         nodes.attr("cx", (d) => { return d.x; })
           .attr("cy", (d) => { return d.y; })
+		
+			
+		  
+		  d3.select(window).on("mouseover", function(d){
+			  
+			console.log(d3.event.pageX/w)
+			nodes.attr("stroke-width", (d) => { 
+			
+			
+			var dist_stroke =  Math.log(dist(d.x/w,d.y/h,d3.event.pageX/w,d3.event.pageY/h)*2,4)*50;
+			return dist_stroke
+
+			 })
+		  })
 		 
 		popuptext 	
 		.attr("x", (d) => { return d.x -image_width/2; })
@@ -1252,7 +1295,7 @@ function wrap(text, width) {
 				ui_parameter_e2.url = ' '	
 
 				response_url = "";
-				
+				response_url2 = "";
 				
 				$("#e1").val("")	
 				$("#rel").val("")					
@@ -1260,6 +1303,12 @@ function wrap(text, width) {
 				
 				$("#longtext1").val("")
 				$("#longtext2").val("")
+				
+				$(".text1_selected").css("display", "none");
+				$(".text2_selected").css("display", "none");
+				$(".img1_selected").css("display", "none");
+				$(".img2_selected").css("display", "none");
+				
 				
 				$('.inserted_img').remove()
 				
