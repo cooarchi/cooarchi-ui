@@ -610,10 +610,10 @@ function wrap(text, width) {
 		  
 		  d3.select(window).on("mouseover", function(d){
 			  
-			console.log(d3.event.pageX/w)
+			//console.log(d3.event.pageX/w)
 			nodes.attr("stroke-width", (d) => { 
 			
-			
+			//////////////////////mouse reactivity of nodes
 			var dist_stroke =  Math.log(dist(d.x/w,d.y/h,d3.event.pageX/w,d3.event.pageY/h)*2,4)*50;
 			return dist_stroke
 
@@ -624,12 +624,15 @@ function wrap(text, width) {
 		.attr("x", (d) => { return d.x -image_width/2; })
 		.attr("y", (d) => { return d.y -image_height/2; })		
 		  
+		  
+		 //////INTERACTIVE NODES/////////////////////
 		  //hitboxes for the selection
 		 hitboxes.attr("cx", (d) => { return d.x; })
 			.attr("cy", (d) => { return d.y; })
 		  	.on("click", function(d) {
-            if (d3.event.defaultPrevented) return;
 
+            if (d3.event.defaultPrevented) return;
+			
                 hitboxes.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; })
             
 
@@ -671,16 +674,25 @@ function wrap(text, width) {
 				console.log(d.label)
 				console.log(d.longText)
 				popuptext.remove();
+				 
 				
 				 popuptext = g_hitboxes.selectAll(".ghitbox")
-				 .filter(function (d) { return d.index === selected_node;})
-				 . append("g")
+				 .filter(function (d) { 
+				 $("showlongtext_div.inserted_longtext").remove
+				$(".showtext_and_blur").css("display", "block");
+				 
+				 return d.index === selected_node;})
+				 //. append("g")
 				.append("text")
-				.text((d) => { return d.longText})
-				.attr("class", ".pop_up_text")
-				.attr("x", (d) => { return d.x+150; })
-				.attr("y", (d) => { return d.y; })
-				.call(wrap, 400);
+				.text((d) => { 
+				$(".showlongtext_div").append('<div class="inserted_longtext">' + d.longText + '</div>');
+				//return d.longText
+				console.log(d.longText)
+				})
+				//.attr("class", ".pop_up_text")
+				//.attr("x", (d) => { return d.x+150; })
+				//.attr("y", (d) => { return d.y; })
+				//.call(wrap, 400);
 
 				
 			}
@@ -1396,9 +1408,13 @@ load_refresh()
 	});
 	
 
-		$('.close_symbol').click(function() {
+	$('.close_symbol').click(function() {
 			$(".text_and_blur").css("display", "none");
+			$(".showtext_and_blur").css("display", "none");
+			$(".inserted_longtext").remove()
+			console.log("removing")
 		});
+
 
 
 

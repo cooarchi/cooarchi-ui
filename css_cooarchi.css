@@ -500,6 +500,8 @@ a {
 	  height: 100%;
 }
 
+
+
 .longtext_div{
 	position: absolute;
 	top: 50%;
@@ -515,13 +517,40 @@ a {
 	
 }
 
+.inserted_longtext{
+	line-break: strict;
+}
 
-#longtext{
+.showtext_and_blur{
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	backdrop-filter: blur(5px);
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+}
+
+.showlongtext_div{
 	position: absolute;
-	top: 40px;
-	overflow-y: scroll;
-	width: 97%;
-    height: 80%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+    background-color: var( --sec-bg-color);
+    border: var( --main-fg-color) 5px solid;
+    width: 50%;
+    height: 50%;
+    padding: 8px;
+    font-size: 18px;
+	z-index: 10;
+	
+}
+
+textarea{
+	 max-width: 100%;
+  width: 100%;
+  height: 100px
 }
   
   
@@ -648,6 +677,8 @@ tspan {
 .text2_selected{display: none}
 .img1_selected{display: none}
 .img2_selected{display: none}
+
+
 				
 				
 				
