@@ -218,6 +218,7 @@ span.longtext {
   outline:none;
   transition:0.3s;
 }
+
 .checkbox::before{
   content:"";
   position:absolute;
@@ -241,6 +242,11 @@ span.longtext {
 	position: relative;
 	top: -8px;
 }
+
+
+
+#trigger1{display: none}
+#trigger2{display: none}
 /* svg { */
   /* background: url('https://media1.thehungryjpeg.com/thumbs2/ori_3608712_ntnvjj4vycg35o1jmvgjl2r834q4kfey5edfgd0p_grid-with-dots-paper-seamless-pattern-isometric-floor-plan-for-basic.jpg') repeat; */
 /* } */

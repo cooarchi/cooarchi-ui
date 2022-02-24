@@ -380,6 +380,14 @@ function save_text2() {
 		svg.call(d3.zoom().on("zoom", function () {
 			g_pan.attr("transform", d3.event.transform)
 		}))
+		
+		//svg.call(d3.zoom().on("start", function () {
+		//	g_pan.attr("transform", "translate(100,50)scale(.5,.5)")
+		//}))
+		
+		
+		
+		
 
 		
       var g_links = g_pan.append("g")
@@ -596,6 +604,8 @@ function wrap(text, width) {
 		  return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)); 
 	  }
   
+  
+
       function ticked() {
 	  
 	  	nodeImages	
